@@ -54,7 +54,7 @@ Open `http://localhost:3000` in a browser. Use the test and build commands below
 | Variable | Purpose |
 | --- | --- |
 | `GOOGLE_SHEETS_SPREADSHEET_ID` | ID of the dedicated lead spreadsheet. |
-| `GOOGLE_SHEETS_LEADS_RANGE` | A1 range for the `Leads` table, for example `Leads!A:U`. |
+| `GOOGLE_SHEETS_LEADS_RANGE` | A1 range for the `Leads` table, for example `Leads!A:S`. |
 | `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Server-side Google service account email. |
 | `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` | Server-side service account private key, with escaped newlines if required by the host. |
 | `RESEND_API_KEY` | Resend API key. |
