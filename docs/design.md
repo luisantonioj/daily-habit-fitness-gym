@@ -1,0 +1,115 @@
+# Design System and UX Guidelines
+
+## Design direction
+
+Until the coach provides a mockup, use a provisional visual direction: confident, energetic, clean, and welcoming to beginners. The design should feel like a real local gym rather than a generic fitness template.
+
+Use real gym imagery when available. Do not make the visitor feel that they must already be fit to belong.
+
+## Provisional design tokens
+
+Keep these values in CSS variables so the future mockup can replace them without rewriting components:
+
+```css
+:root {
+  --color-ink: #111416;
+  --color-ink-soft: #252a2d;
+  --color-paper: #f3f0e9;
+  --color-paper-muted: #ddd9d0;
+  --color-accent: #c9f04a;
+  --color-accent-strong: #98bd1d;
+  --color-danger: #b64238;
+  --color-focus: #2859c5;
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 1.5rem 4rem rgb(17 20 22 / 0.12);
+  --content-max: 76rem;
+}
+```
+
+The accent color must be paired with dark text. Body text must meet WCAG AA contrast. Focus styling must remain visible against both dark and light surfaces.
+
+## Page structure
+
+1. **Header** — logo/name, section links, and a high-visibility registration CTA.
+2. **Hero** — clear beginner-friendly promise, primary CTA, supporting proof point, and approved hero media.
+3. **Why Daily Habit** — three to four benefits focused on support, consistency, practical access, and community.
+4. **Training environment** — equipment, facilities, coaching, or programs using only confirmed facts.
+5. **Media gallery** — approved photos and video with responsive crops and poster images.
+6. **Membership or rates** — published prices only when confirmed; otherwise a clear “ask about membership” CTA.
+7. **Social proof** — testimonials, member quotes, or approved community evidence.
+8. **FAQ** — beginner concerns, what to bring, first visit, schedule, and membership questions.
+9. **Visit the gym** — address, hours, phone, map/directions link, and social links.
+10. **Registration form** — contact and fitness intent fields with consent and clear expectations.
+11. **Footer** — privacy notice link, social links, copyright, and secondary contact CTA.
+
+## Component expectations
+
+- `SiteHeader`: responsive navigation with an accessible menu button on small screens.
+- `HeroSection`: one primary action and one optional secondary action.
+- `BenefitGrid`: short, scannable benefit cards with simple icon or text treatment.
+- `FacilitySection`: factual content paired with media.
+- `MediaGallery`: responsive image grid and optional video card.
+- `OfferSection`: rates or membership prompt with an owner-confirmation boundary.
+- `TestimonialSection`: quote, name/descriptor, and permission status.
+- `FaqSection`: native disclosure behavior where possible.
+- `VisitSection`: practical visit details and directions CTA.
+- `LeadForm`: labeled fields, inline errors, loading state, success state, and retryable failure state.
+- `SiteFooter`: policy and contact links.
+
+## Responsive behavior
+
+- Design mobile-first for social traffic.
+- Keep the primary CTA visible in the first viewport and repeat it after major decision points.
+- Use a single-column layout on small screens and progressively introduce two- and three-column grids.
+- Avoid horizontal scrolling, tiny tap targets, and text over busy imagery.
+- Keep form fields full-width on mobile and place related fields side by side only when space permits.
+- Ensure hero media has a defined aspect ratio to avoid layout shifts.
+- Keep the header compact without hiding the primary CTA behind unnecessary interaction.
+
+## Interaction states
+
+Every interactive component must define:
+
+- Default state.
+- Hover state where applicable.
+- Keyboard focus state.
+- Pressed/active state where applicable.
+- Disabled state.
+- Loading state.
+- Error state.
+- Success state.
+
+The lead form must preserve entered values after recoverable errors and prevent duplicate clicks while submitting.
+
+## Media requirements
+
+- Accept only coach-approved assets with usage permission.
+- Keep original files outside the public repository unless they are approved for publication.
+- Provide responsive crops or object-position guidance for hero images.
+- Provide poster images, captions, and a text alternative for video.
+- Use descriptive alt text for informative images and empty alt text for decorative images.
+- Compress images and use modern formats where supported.
+- Do not autoplay video with sound.
+- Respect reduced-motion preferences for video, carousels, and animated entrances.
+
+## Accessibility
+
+- Use landmarks: `header`, `nav`, `main`, `section`, and `footer`.
+- Maintain a logical heading hierarchy with one page-level `h1`.
+- Associate every form control with a visible label.
+- Announce validation and submission status through accessible live regions.
+- Preserve keyboard access to navigation, accordions, media controls, and the form.
+- Provide a visible, high-contrast focus indicator.
+- Keep touch targets at least 44px where practical.
+- Do not rely on color alone to communicate errors or status.
+- Test at narrow mobile width, large desktop width, zoomed text, and reduced motion.
+- Check keyboard flow and automated accessibility findings before launch.
+
+## Content rules
+
+- Prefer plain English and short paragraphs.
+- Use encouraging language without promising guaranteed physical results.
+- Keep calls to action specific: “Ask about membership”, “Plan your first visit”, or “Register your interest”.
+- Mark missing owner content with `[OWNER TO CONFIRM]`.
+- Do not publish unverified prices, opening hours, address details, coach credentials, or testimonials.
