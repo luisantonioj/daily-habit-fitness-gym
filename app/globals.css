@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #111416;
+  --color-ink-soft: #252a2d;
+  --color-paper: #f3f0e9;
+  --color-paper-muted: #ddd9d0;
+  --color-accent: #c9f04a;
+  --color-accent-strong: #98bd1d;
+  --color-danger: #b64238;
+  --color-focus: #2859c5;
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 1.5rem 4rem rgb(17 20 22 / 0.12);
+  --content-max: 76rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.site-shell {
+  width: min(calc(100% - 2rem), var(--content-max));
+  margin: 0 auto;
+}
+
+.placeholder-page {
+  display: grid;
+  min-height: 100svh;
+  place-content: center;
+  gap: 1rem;
+  padding: 3rem 0;
+}
+
+.placeholder-page h1,
+.placeholder-page p {
+  max-width: 42rem;
+}
+
+.placeholder-page h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.placeholder-page p:not(.eyebrow) {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-accent-strong);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 48rem) {
+  .site-shell {
+    width: min(calc(100% - 4rem), var(--content-max));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

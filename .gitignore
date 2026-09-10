@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+playwright-report/
+test-results/
+.env
+.env.*
+!.env.example
+*.log
+
+# Local media and lead exports should never be committed by default.
+public/media/*
+!public/media/.gitkeep
