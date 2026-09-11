@@ -111,4 +111,4 @@ npm run build
 
 Business claims, prices, hours, address, testimonials, coach biography, social links, and media must be confirmed by the coach before release. Until then, use `[OWNER TO CONFIRM]` rather than inventing content.
 
-See the remaining documentation for the product context, engineering rules, architecture, design system, and `grill-me` workflow.
+See the remaining documentation for the product context, engineering rules, architecture, design system, `grill-me` workflow, and the [content handoff and deployment runbook](runbook.md).
