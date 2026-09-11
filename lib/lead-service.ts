@@ -5,6 +5,7 @@ import { appendLeadRow, type LeadSheetRow } from "@/lib/sheets/client";
 export type StoredLead = {
   leadId: string;
   submittedAt: string;
+  rowNumber: number | undefined;
 };
 
 function toSheetRow(lead: LeadInput, leadId: string, submittedAt: string): LeadSheetRow {
@@ -34,6 +35,6 @@ function toSheetRow(lead: LeadInput, leadId: string, submittedAt: string): LeadS
 export async function storeLead(lead: LeadInput): Promise<StoredLead> {
   const leadId = randomUUID();
   const submittedAt = new Date().toISOString();
-  await appendLeadRow(toSheetRow(lead, leadId, submittedAt));
-  return { leadId, submittedAt };
+  const rowNumber = await appendLeadRow(toSheetRow(lead, leadId, submittedAt));
+  return { leadId, submittedAt, rowNumber };
 }

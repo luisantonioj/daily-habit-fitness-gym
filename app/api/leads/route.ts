@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { storeLead } from "@/lib/lead-service";
+import { sendLeadConfirmation } from "@/lib/email/client";
+import { updateLeadConfirmation } from "@/lib/sheets/client";
 import { getLeadFieldErrors, leadSchema } from "@/lib/validation/lead";
 
 export async function POST(request: Request) {
@@ -29,6 +31,31 @@ export async function POST(request: Request) {
 
   try {
     const storedLead = await storeLead(parsed.data);
+    let confirmationStatus: "sent" | "failed" = "failed";
+
+    try {
+      await sendLeadConfirmation({
+        leadId: storedLead.leadId,
+        submittedAt: storedLead.submittedAt,
+        lead: parsed.data,
+      });
+      confirmationStatus = "sent";
+    } catch (error) {
+      console.error("Lead confirmation failed", error instanceof Error ? error.message : "Unknown email error");
+    }
+
+    if (storedLead.rowNumber) {
+      try {
+        await updateLeadConfirmation(
+          storedLead.rowNumber,
+          confirmationStatus,
+          confirmationStatus === "sent" ? new Date().toISOString() : "",
+        );
+      } catch (error) {
+        console.error("Lead confirmation status update failed", error instanceof Error ? error.message : "Unknown Sheet error");
+      }
+    }
+
     return NextResponse.json({ ok: true, leadId: storedLead.leadId });
   } catch (error) {
     console.error("Lead storage failed", error instanceof Error ? error.message : "Unknown storage error");
