@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 

@@ -6,7 +6,7 @@
   --color-paper: #f3f0e9;
   --color-paper-muted: #ddd9d0;
   --color-accent: #c9f04a;
-  --color-accent-strong: #98bd1d;
+  --color-accent-strong: #4f6b06;
   --color-danger: #b64238;
   --color-focus: #2859c5;
   --radius-card: 1.25rem;
@@ -694,7 +694,7 @@ a {
 }
 
 .eyebrow-dark {
-  color: var(--color-ink-soft);
+  color: var(--color-ink-soft) !important;
 }
 
 .membership-copy {
@@ -956,7 +956,7 @@ a {
 
 .optional-label {
   margin-left: 0.35rem;
-  color: rgb(243 240 233 / 0.4);
+  color: rgb(243 240 233 / 0.68);
   font-size: 0.6rem;
   font-weight: 600;
 }
@@ -1072,7 +1072,7 @@ a {
 .form-submit-row > p {
   max-width: 18rem;
   margin: 0;
-  color: rgb(243 240 233 / 0.38);
+  color: rgb(243 240 233 / 0.7);
   font-size: 0.62rem;
   line-height: 1.45;
 }
@@ -1202,7 +1202,7 @@ a {
   gap: 0.55rem;
   padding-top: 1.25rem;
   border-top: 1px solid rgb(243 240 233 / 0.2);
-  color: rgb(243 240 233 / 0.42);
+  color: rgb(243 240 233 / 0.68);
   font-size: 0.62rem;
   font-weight: 700;
 }
