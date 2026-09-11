@@ -1,3 +1,5 @@
+import { LeadForm } from "@/components/lead-form/lead-form";
+
 const benefits = [
   {
     number: "01",
@@ -304,16 +306,15 @@ export function LandingPage() {
         <section className="register-section" id="register" aria-labelledby="register-title">
           <div className="site-shell">
             <div className="register-card">
-              <div className="register-mark" aria-hidden="true">DH</div>
-              <div className="register-copy">
-                <p className="eyebrow">Start the conversation</p>
-                <h2 id="register-title">Tell us what you want to build.</h2>
-                <p>The registration form is the next implementation slice. It will collect your contact details and fitness goal, then connect you with the coach.</p>
+              <div className="register-card-top">
+                <div className="register-mark" aria-hidden="true">DH</div>
+                <div className="register-copy">
+                  <p className="eyebrow">Start the conversation</p>
+                  <h2 id="register-title">Tell us what you want to build.</h2>
+                  <p>Share your contact details and fitness goal, then the coach can help you find the right starting point.</p>
+                </div>
               </div>
-              <div className="register-status" role="status">
-                <span className="status-dot" aria-hidden="true" />
-                Registration form connection in progress
-              </div>
+              <LeadForm />
             </div>
           </div>
         </section>
