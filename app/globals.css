@@ -683,7 +683,7 @@ button, input, select, textarea { font: inherit; }
   .stitch-membership-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (min-width: 1180px) {
+@media (min-width: 1280px) {
   .stitch-nav { display: flex; }
   .stitch-menu-toggle { display: none; }
   .coach-status { display: flex; }
@@ -691,7 +691,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 @media (min-width: 1200px) {
-  .stitch-nav { gap: 0.8rem; }
+  .stitch-nav { gap: 0.55rem; }
   .stitch-nav a { font-size: 0.68rem; }
   .stitch-hero-grid { gap: 4rem; }
 }
@@ -1787,7 +1787,7 @@ button, input, select, textarea { font: inherit; }
   color: var(--stitch-accent-text);
 }
 
-.stitch-registration .field-hint {
+.stitch-registration .field-group label .field-hint {
   color: var(--stitch-secondary);
   font-family: var(--font-body);
   font-size: 0.65rem;
