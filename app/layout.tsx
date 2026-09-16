@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: "Daily Habit Fitness Gym",
   description:
     "Build a consistent fitness habit with Daily Habit Fitness Gym. Register your interest and plan your first visit.",
+  icons: {
+    icon: "/brand/daily-habit-mark.png",
+    shortcut: "/brand/daily-habit-mark.png",
+    apple: "/brand/daily-habit-mark.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

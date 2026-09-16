@@ -12,29 +12,35 @@ Keep these values in CSS variables so the future mockup can replace them without
 
 ```css
 [data-theme="dark"] {
-  --color-ink: #111416;
-  --color-ink-soft: #252a2d;
-  --color-surface-high: #32383e;
-  --color-paper: #ffffff;
-  --color-paper-muted: #d9d4c2;
-  --color-accent: #fff200;
-  --color-accent-text: #fff200;
-  --color-on-accent: #111416;
-  --color-border: rgb(255 255 255 / 0.14);
-  --color-muted: #b7b9b6;
+  --stitch-bg: #111416;
+  --stitch-surface: #1d2022;
+  --stitch-low: #191c1e;
+  --stitch-high: #272a2c;
+  --stitch-highest: #323537;
+  --stitch-text: #e1e2e5;
+  --stitch-secondary: #c3c7cb;
+  --stitch-variant: #ccc7aa;
+  --stitch-accent: #f3e700;
+  --stitch-accent-text: #f3e700;
+  --stitch-accent-border: #f3e700;
+  --stitch-on-accent: #353200;
+  --stitch-border: #323537;
 }
 
 [data-theme="light"] {
-  --color-ink: #111416;
-  --color-ink-soft: #ffffff;
-  --color-surface-high: #e7e5de;
-  --color-paper: #f3f0e9;
-  --color-paper-muted: #dedbd2;
-  --color-accent: #fff200;
-  --color-accent-text: #5d6200;
-  --color-on-accent: #111416;
-  --color-border: rgb(17 20 22 / 0.14);
-  --color-muted: #526066;
+  --stitch-bg: #f3f0e9;
+  --stitch-surface: #ffffff;
+  --stitch-low: #e7e3da;
+  --stitch-high: #e1dfd7;
+  --stitch-highest: #d1cec4;
+  --stitch-text: #111416;
+  --stitch-secondary: #526066;
+  --stitch-variant: #66625a;
+  --stitch-accent: #f3e700;
+  --stitch-accent-text: #5d6200;
+  --stitch-accent-border: #5d6200;
+  --stitch-on-accent: #353200;
+  --stitch-border: #b8b5ac;
 }
 
 :root {
@@ -47,7 +53,7 @@ Keep these values in CSS variables so the future mockup can replace them without
 }
 ```
 
-Dark mode is the default because it reflects the supplied brand reference. Light mode keeps the same black, white, yellow, and slate-gray brand family while using warm paper backgrounds and a darker olive accent text token where yellow would not meet contrast. The bright accent must always be paired with dark text. Body text must meet WCAG AA contrast. Focus styling must remain visible against both themes.
+Dark mode is the default because it reflects the supplied brand reference. Light mode is a complete warm-paper inverse using the same black, white, yellow, slate-gray, and warm-gray family. `--stitch-accent` is reserved for fills, progress, status dots, and decorative treatment; `--stitch-accent-text` and `--stitch-accent-border` must be used for light-theme text and boundaries because bright yellow does not meet contrast on light surfaces. Body text and meaningful controls must meet WCAG AA contrast. Focus styling must remain visible against both themes. Native controls must receive the matching `color-scheme`.
 
 The theme toggle sets `data-theme` on `<html>` and persists the value under the `daily-habit-theme` local-storage key. The server-rendered default is dark; a small pre-paint initialization script applies a saved choice before the page becomes visible. The toggle must expose its state through `aria-pressed` and a useful accessible label.
 
@@ -85,12 +91,16 @@ Approved local brand assets are stored at `public/brand/daily-habit-logo.png` fo
 
 - Design mobile-first for social traffic.
 - Keep the primary CTA visible in the first viewport and repeat it after major decision points.
-- Use a single-column layout on small screens and progressively introduce two- and three-column grids.
+- Use a single-column layout on phones (320–430px), progressively introduce two-column grids on tablets/iPads (768–1180px), and use the full Stitch composition on laptops and large screens (1280–1920px).
+- Verify phones at 320×800, 360×800, 390×844, and 430×932; tablets/iPads at 768×1024, 820×1180, 834×1194, and 1024×768; and laptops at 1280×800, 1366×768, 1440×900, 1536×864, and 1920×1080.
 - Avoid horizontal scrolling, tiny tap targets, and text over busy imagery.
 - Keep form fields full-width on mobile and place related fields side by side only when space permits.
 - Ensure hero media has a defined aspect ratio to avoid layout shifts.
 - Keep the header compact without hiding the primary CTA behind unnecessary interaction.
-- In light mode, keep the yellow CTA and dark logo backing visually intentional rather than introducing unrelated brand colors.
+- Keep the yellow CTA and dark logo backing visually intentional in light mode without using bright yellow for small text.
+- Keep the mobile header controls reachable; collapse the CTA to an icon at narrow phone widths, keep the menu open state within the viewport, and use at least 44px touch targets.
+- Keep tablet landscape navigation in the accessible menu until the full navigation fits; show the full navigation and coach status chip only on wide laptop layouts.
+- Use two membership columns at tablet landscape widths and three columns only when laptop content remains readable.
 
 ## Interaction states
 

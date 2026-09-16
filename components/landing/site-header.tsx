@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { CoachAvatar } from "@/components/landing/coach-avatar";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { sampleMedia, stitchContent } from "@/content/site";
 
@@ -26,7 +27,7 @@ export function SiteHeader() {
 
         <div className="stitch-header-actions">
           <div className="coach-status">
-            <Image src={sampleMedia.coachSarah.src} alt="Profile" width={64} height={64} />
+            <CoachAvatar src={sampleMedia.coachSarah.src} alt={sampleMedia.coachSarah.alt} width={64} height={64} />
             <span><b><i aria-hidden="true" />{stitchContent.header.status}</b></span>
           </div>
           <ThemeToggle />

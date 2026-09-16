@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CoachAvatar } from "@/components/landing/coach-avatar";
 import { sampleMedia, stitchContent } from "@/content/site";
 
 function ArrowForward() {
@@ -35,7 +36,7 @@ export function HeroSection() {
               <div className="stitch-live-label"><i aria-hidden="true" />{hero.liveLabel}</div>
             </div>
             <div className="stitch-coach-card">
-              <div className="stitch-coach-identity"><Image src={sampleMedia.coachSarah.src} alt={sampleMedia.coachSarah.alt} width={96} height={96} /><div><b>{hero.coachName}</b><small>{hero.coachRole}</small></div></div>
+              <div className="stitch-coach-identity"><CoachAvatar src={sampleMedia.coachSarah.src} alt={sampleMedia.coachSarah.alt} width={96} height={96} /><div><b>{hero.coachName}</b><small>{hero.coachRole}</small></div></div>
               <span className="stitch-floor-status">{hero.coachStatus}</span>
             </div>
             <div className="stitch-streak-card"><div><span>{hero.streakLabel}</span><b>{hero.streakValue}</b></div><div className="stitch-progress"><i /></div><p>{hero.streakCopy}</p></div>
