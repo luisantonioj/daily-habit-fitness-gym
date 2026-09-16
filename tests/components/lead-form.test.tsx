@@ -1,7 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { LeadForm } from "@/components/lead-form/lead-form";
 
 describe("LeadForm", () => {
@@ -9,12 +9,16 @@ describe("LeadForm", () => {
     vi.restoreAllMocks();
   });
 
+  afterEach(() => {
+    cleanup();
+  });
+
   it("submits a valid inquiry and announces success", async () => {
     const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ ok: true, leadId: "lead-123" }), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
     const user = userEvent.setup();
 
-    render(<LeadForm />);
+    render(<LeadForm enabled />);
     await user.type(screen.getByLabelText(/name/i), "Alex Santos");
     await user.type(screen.getByLabelText(/email/i), "alex@example.com");
     await user.selectOptions(screen.getByLabelText(/primary fitness goal/i), "Get stronger");
@@ -30,7 +34,7 @@ describe("LeadForm", () => {
     vi.stubGlobal("fetch", fetchMock);
     const user = userEvent.setup();
 
-    render(<LeadForm />);
+    render(<LeadForm enabled />);
     await user.type(screen.getByLabelText(/name/i), "Alex Santos");
     await user.type(screen.getByLabelText(/email/i), "alex@example.com");
     await user.selectOptions(screen.getByLabelText(/primary fitness goal/i), "Get stronger");
@@ -39,5 +43,21 @@ describe("LeadForm", () => {
 
     expect(await screen.findByText("Please enter a valid email address.")).toBeInTheDocument();
     expect(screen.getByDisplayValue("Alex Santos")).toBeInTheDocument();
+  });
+
+  it("keeps the preview form visible without submitting when disabled", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const user = userEvent.setup();
+
+    render(<LeadForm enabled={false} />);
+
+    expect(screen.getByText("Registration opens soon. This preview is not accepting inquiries yet.")).toBeInTheDocument();
+    const submit = screen.getByRole("button", { name: /book my intro session/i });
+    expect(submit).toBeDisabled();
+
+    await user.click(submit);
+
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
