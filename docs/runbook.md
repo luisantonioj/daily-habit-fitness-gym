@@ -17,6 +17,8 @@ Confirm each item in writing before publishing it:
 
 ## Media handoff
 
+The current brand assets are supplied separately from coach media. Confirm that the files in `public/brand/` are the approved Daily Habit logo lockup and kettlebell/lightning mark before deployment. Keep the logo unchanged; replace it only with a newer coach-approved asset in a focused commit.
+
 For each photo or video, provide:
 
 | Item | Required information |
@@ -66,6 +68,8 @@ The default digest schedule is `0 0 * * *` UTC, corresponding to 08:00 Asia/Mani
 
 ## Prelaunch checklist
 
+- Verify dark mode is the default and the light-mode toggle persists after reload.
+- Review both themes for contrast, logo treatment, focus states, and responsive layout.
 - Replace all `[OWNER TO CONFIRM]` copy.
 - Replace media placeholders with approved assets.
 - Add the final privacy notice link and text.

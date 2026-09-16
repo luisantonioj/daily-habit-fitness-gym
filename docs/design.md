@@ -2,22 +2,42 @@
 
 ## Design direction
 
-Until the coach provides a mockup, use a provisional visual direction: confident, energetic, clean, and welcoming to beginners. The design should feel like a real local gym rather than a generic fitness template.
+Use the supplied Stitch reference as the layout and interaction direction: a confident, energetic, editorial gym landing page with bold athletic typography, dark surfaces, high-contrast yellow actions, compact information cards, generous spacing, and a welcoming tone for beginners. The attached logo images are visual brand assets only. The pasted Stitch HTML is not an authority for business facts; remove or retain `[OWNER TO CONFIRM]` for any location, hours, rates, testimonials, coach names, credentials, or service claims that the coach has not approved.
 
-Use real gym imagery when available. Do not make the visitor feel that they must already be fit to belong.
+Use real gym imagery only after the coach confirms usage rights. Until then, use clearly labeled media slots that communicate where photos, videos, captions, and poster images will be placed. Do not make the visitor feel that they must already be fit to belong.
 
-## Provisional design tokens
+## Design tokens and themes
 
 Keep these values in CSS variables so the future mockup can replace them without rewriting components:
 
 ```css
-:root {
+[data-theme="dark"] {
   --color-ink: #111416;
   --color-ink-soft: #252a2d;
+  --color-surface-high: #32383e;
+  --color-paper: #ffffff;
+  --color-paper-muted: #d9d4c2;
+  --color-accent: #fff200;
+  --color-accent-text: #fff200;
+  --color-on-accent: #111416;
+  --color-border: rgb(255 255 255 / 0.14);
+  --color-muted: #b7b9b6;
+}
+
+[data-theme="light"] {
+  --color-ink: #111416;
+  --color-ink-soft: #ffffff;
+  --color-surface-high: #e7e5de;
   --color-paper: #f3f0e9;
-  --color-paper-muted: #ddd9d0;
-  --color-accent: #c9f04a;
-  --color-accent-strong: #98bd1d;
+  --color-paper-muted: #dedbd2;
+  --color-accent: #fff200;
+  --color-accent-text: #5d6200;
+  --color-on-accent: #111416;
+  --color-border: rgb(17 20 22 / 0.14);
+  --color-muted: #526066;
+}
+
+:root {
   --color-danger: #b64238;
   --color-focus: #2859c5;
   --radius-card: 1.25rem;
@@ -27,7 +47,11 @@ Keep these values in CSS variables so the future mockup can replace them without
 }
 ```
 
-The accent color must be paired with dark text. Body text must meet WCAG AA contrast. Focus styling must remain visible against both dark and light surfaces.
+Dark mode is the default because it reflects the supplied brand reference. Light mode keeps the same black, white, yellow, and slate-gray brand family while using warm paper backgrounds and a darker olive accent text token where yellow would not meet contrast. The bright accent must always be paired with dark text. Body text must meet WCAG AA contrast. Focus styling must remain visible against both themes.
+
+The theme toggle sets `data-theme` on `<html>` and persists the value under the `daily-habit-theme` local-storage key. The server-rendered default is dark; a small pre-paint initialization script applies a saved choice before the page becomes visible. The toggle must expose its state through `aria-pressed` and a useful accessible label.
+
+Approved local brand assets are stored at `public/brand/daily-habit-logo.png` for the full lockup and `public/brand/daily-habit-mark.png` for the kettlebell/lightning mark. Do not recreate the mark with text or use remote image URLs from the Stitch export.
 
 ## Page structure
 
@@ -45,7 +69,7 @@ The accent color must be paired with dark text. Body text must meet WCAG AA cont
 
 ## Component expectations
 
-- `SiteHeader`: responsive navigation with an accessible menu button on small screens.
+- `SiteHeader`: responsive navigation with an accessible menu button on small screens, the supplied mark/full lockup, and a dark/light theme toggle.
 - `HeroSection`: one primary action and one optional secondary action.
 - `BenefitGrid`: short, scannable benefit cards with simple icon or text treatment.
 - `FacilitySection`: factual content paired with media.
@@ -66,6 +90,7 @@ The accent color must be paired with dark text. Body text must meet WCAG AA cont
 - Keep form fields full-width on mobile and place related fields side by side only when space permits.
 - Ensure hero media has a defined aspect ratio to avoid layout shifts.
 - Keep the header compact without hiding the primary CTA behind unnecessary interaction.
+- In light mode, keep the yellow CTA and dark logo backing visually intentional rather than introducing unrelated brand colors.
 
 ## Interaction states
 
@@ -103,6 +128,7 @@ The lead form must preserve entered values after recoverable errors and prevent 
 - Provide a visible, high-contrast focus indicator.
 - Keep touch targets at least 44px where practical.
 - Do not rely on color alone to communicate errors or status.
+- Ensure the theme toggle is reachable by keyboard and announces its current mode.
 - Test at narrow mobile width, large desktop width, zoomed text, and reduced motion.
 - Check keyboard flow and automated accessibility findings before launch.
 

@@ -42,9 +42,14 @@ lib/
   sheets/                Google Sheets client and row operations
   email/                 Resend client and email templates
   time/                  Timezone and display helpers
+public/brand/             Supplied Daily Habit logo lockup and mark
 public/media/             Approved local media
 tests/                    Unit, integration, accessibility, and E2E coverage
 ```
+
+The landing page remains a single route. Theme state is a client-side presentation concern: `<html data-theme="dark|light">` is the source of truth, `daily-habit-theme` is the browser persistence key, and no theme value is sent to the lead API or stored with a lead.
+
+The logo is rendered from local assets only. `daily-habit-mark.png` is used for compact navigation and `daily-habit-logo.png` is used where the full brand lockup is appropriate. The UI must not depend on the external image URLs or invented content included in the Stitch export.
 
 ## Lead submission contract
 
