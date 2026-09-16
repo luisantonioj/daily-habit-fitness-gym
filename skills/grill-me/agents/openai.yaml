@@ -1,0 +1,8 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "Clarify requirements before implementation"
+  brand_color: "#C9F04A"
+  default_prompt: "Use $grill-me to interview me one question at a time and produce a decision-complete implementation plan."
+
+policy:
+  allow_implicit_invocation: true

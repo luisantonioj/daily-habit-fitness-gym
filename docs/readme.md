@@ -7,8 +7,8 @@ Daily Habit Fitness Gym is a mobile-first lead-generation website for a local gy
 The first release includes:
 
 - A polished single-page landing experience.
-- Coach-approved information about services, facilities, membership options, location, and hours.
-- Coach-provided photos and videos once usage rights and final selections are confirmed.
+- Stitch sample information about services, facilities, membership options, location, hours, coaches, and testimonials as temporary content.
+- Remote Stitch sample photos and videos as temporary media references.
 - A registration form for interested visitors.
 - Server-side persistence to a dedicated Google Sheet.
 - An on-site success state and an automated confirmation email to the lead.
@@ -20,7 +20,7 @@ The first release does not include payments, completed membership enrollment, ac
 
 - Next.js App Router with TypeScript.
 - React for UI composition.
-- Tailwind CSS plus project CSS variables for responsive styling and design tokens.
+- Tailwind CSS plus project CSS variables for responsive styling, Stitch-inspired layout tokens, and dark/light themes.
 - Zod for shared request validation.
 - Google Sheets API for the `Leads` worksheet.
 - Resend for transactional emails.
@@ -54,7 +54,7 @@ Open `http://localhost:3000` in a browser. Use the test and build commands below
 | Variable | Purpose |
 | --- | --- |
 | `GOOGLE_SHEETS_SPREADSHEET_ID` | ID of the dedicated lead spreadsheet. |
-| `GOOGLE_SHEETS_LEADS_RANGE` | A1 range for the `Leads` table, for example `Leads!A:U`. |
+| `GOOGLE_SHEETS_LEADS_RANGE` | A1 range for the `Leads` table, for example `Leads!A:S`. |
 | `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Server-side Google service account email. |
 | `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` | Server-side service account private key, with escaped newlines if required by the host. |
 | `RESEND_API_KEY` | Resend API key. |
@@ -88,8 +88,12 @@ The default daily digest is scheduled for 00:00 UTC, which corresponds to 08:00 
 
 ```text
 app/                    Next.js routes, layout, page, and API handlers
-components/             Reusable landing-page and form components
+components/landing/     Landing sections and responsive site header
+components/theme/       Persisted dark/light theme toggle
+components/lead-form/   Lead form and submission states
+content/                Typed Stitch sample content and remote media metadata
 lib/                    Validation, Google Sheets, email, and shared utilities
+public/brand/           Supplied Daily Habit logo lockup and mark
 public/media/           Approved coach-provided photos and videos
 tests/                  Unit, integration, accessibility, and browser tests
 docs/                   Product, engineering, architecture, design, and skill context
@@ -109,6 +113,10 @@ npm run build
 
 ## Content ownership
 
-Business claims, prices, hours, address, testimonials, coach biography, social links, and media must be confirmed by the coach before release. Until then, use `[OWNER TO CONFIRM]` rather than inventing content.
+The current adaptation intentionally uses the supplied Stitch sample claims, prices/placeholders, hours, address, coaches, testimonials, metrics, amenities, social links, and remote media. The coach must verify all of them before public release; do not add new unverified content beyond the sample.
 
-See the remaining documentation for the product context, engineering rules, architecture, design system, and `grill-me` workflow.
+## Theme and brand handoff
+
+Dark mode is the default. Visitors can switch to light mode from the header; the selection is stored locally under `daily-habit-theme` and is not submitted with lead data. Both modes use the same `#111416` black, `#FFF200` electric yellow, white, and slate-gray brand family. Keep the supplied files in `public/brand/` unchanged and use only coach-approved media in `public/media/`. Before replacing a placeholder, record the approved filename, usage rights, alt text, crop, caption, and video poster/transcript in the content handoff.
+
+See the remaining documentation for the product context, engineering rules, architecture, design system, `grill-me` workflow, and the [content handoff and deployment runbook](runbook.md).
