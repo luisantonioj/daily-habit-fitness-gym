@@ -9,6 +9,10 @@ type ApiResponse =
   | { ok: true; leadId: string }
   | { ok: false; error?: string; fieldErrors?: Record<string, string[]> };
 
+type LeadFormProps = {
+  enabled?: boolean;
+};
+
 const goals = [
   "Build a consistent workout routine",
   "Get stronger",
@@ -17,7 +21,7 @@ const goals = [
   "Something else",
 ];
 
-export function LeadForm() {
+export function LeadForm({ enabled = false }: LeadFormProps) {
   const formContent = stitchContent.form;
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
@@ -25,6 +29,8 @@ export function LeadForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!enabled) return;
+
     setState("submitting");
     setMessage("");
     setFieldErrors({});
@@ -90,7 +96,9 @@ export function LeadForm() {
   }
 
   return (
-    <form className="lead-form" onSubmit={handleSubmit} noValidate>
+    <form className="lead-form" data-leads-enabled={enabled} onSubmit={handleSubmit} noValidate>
+      {!enabled ? <p className="lead-form-notice" id="lead-form-preview-note" role="status">Registration opens soon. This preview is not accepting inquiries yet.</p> : null}
+
       <div className="form-grid form-grid-two">
         <div className="field-group">
           <label htmlFor="lead-name"><span>Full Name <span aria-hidden="true">*</span></span><span className="field-hint">First &amp; Last</span></label>
@@ -150,7 +158,7 @@ export function LeadForm() {
       {state === "error" ? <p className="form-alert" role="alert">{message}</p> : null}
 
       <div className="form-submit-row">
-        <button className="button button-primary form-submit" type="submit" disabled={state === "submitting"}>
+        <button className="button button-primary form-submit" type="submit" disabled={!enabled || state === "submitting"}>
           {state === "submitting" ? formContent.submitLoading : formContent.submit}
           <span aria-hidden="true">↗</span>
         </button>
