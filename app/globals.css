@@ -1645,6 +1645,19 @@ button, input, select, textarea { font: inherit; }
   box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.2);
 }
 
+.stitch-registration .lead-form-notice {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--stitch-accent) 45%, var(--stitch-border));
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--stitch-accent) 10%, var(--stitch-surface));
+  color: var(--stitch-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .stitch-registration .field-group {
   gap: 0.5rem;
 }

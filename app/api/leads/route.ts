@@ -5,6 +5,10 @@ import { updateLeadConfirmation } from "@/lib/sheets/client";
 import { getLeadFieldErrors, leadSchema } from "@/lib/validation/lead";
 
 export async function POST(request: Request) {
+  if (process.env.LEADS_ENABLED !== "true") {
+    return NextResponse.json({ ok: false, error: "Registration is temporarily unavailable." }, { status: 503 });
+  }
+
   let body: unknown;
 
   try {

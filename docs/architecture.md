@@ -52,6 +52,8 @@ tests/                    Unit, integration, accessibility, and E2E coverage
 
 The landing page remains a single route. Theme state is a client-side presentation concern: `<html data-theme="dark|light">` is the source of truth, `daily-habit-theme` is the browser persistence key, and no theme value is sent to the lead API or stored with a lead.
 
+Lead capture is controlled by the server-only `LEADS_ENABLED` environment variable. When it is not exactly `true`, the page shows the form as a non-submitting preview, and `POST /api/leads` returns a generic `503` before parsing or calling any provider. This is the required safe default for UI-only Preview deployments. When enabled, the existing validation, Google Sheets, Resend, and status-update flow is unchanged.
+
 The frontend content model is the temporary source of truth for the Stitch adaptation. It contains the sample's exact text, metric values, names, membership content, testimonial content, visit details, and remote media metadata. Media uses remote URLs from `lh3.googleusercontent.com`; Next image configuration must allow only that host. Replacing sample content later should require changing `content/site.ts`, not page layout or API code.
 
 The logo is rendered from local assets only. `daily-habit-mark.png` is used for compact navigation and `daily-habit-logo.png` is used where the full brand lockup is appropriate. Sample photography remains remote by explicit decision and must be monitored for availability and rights.
@@ -169,6 +171,7 @@ RESEND_API_KEY
 EMAIL_FROM
 COACH_EMAIL
 CRON_SECRET
+LEADS_ENABLED=false
 NEXT_PUBLIC_SITE_URL
 LEADS_TIME_ZONE=Asia/Manila
 ```

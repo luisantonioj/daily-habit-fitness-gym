@@ -28,6 +28,7 @@ function MediaImage({ media, className = "" }: { media: MediaAsset; className?: 
 
 export function LandingPage() {
   const { benefits, experience, coaching, tour, memberships, community, faq, location, form, footer } = stitchContent;
+  const leadsEnabled = process.env.LEADS_ENABLED === "true";
 
   return (
     <div className="site-frame">
@@ -75,7 +76,7 @@ export function LandingPage() {
 
         <section className="stitch-section stitch-location" id="location-contact" aria-labelledby="location-title"><div className="site-shell"><SectionHeader id="location-title" eyebrow={location.eyebrow} title={location.title} /><div className="stitch-location-grid"><div className="stitch-location-cards"><article><div><Icon name="pin_drop" /><h3>{location.addressTitle}</h3></div><strong>{location.address}</strong><p>{location.addressCopy}</p></article><article><div><Icon name="schedule" /><h3>Operating Hours</h3></div><strong>{location.hours}</strong><dl>{location.hoursRows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></article><article><div><Icon name="alternate_email" /><h3>Direct Contact</h3></div><strong>{location.contact}</strong><p>{location.contactCopy}</p></article></div><div className="stitch-map"><div className="stitch-map-art" aria-hidden="true" /><div className="stitch-map-callout"><div><i aria-hidden="true" /><div><b>{location.mapLabel}</b><span>{location.mapSubLabel}</span></div></div><a href="#register">{location.cta}</a></div></div></div></div></section>
 
-        <section className="stitch-section stitch-registration" id="register" aria-labelledby="register-title"><div className="site-shell stitch-registration-shell"><SectionHeader id="register-title" eyebrow={form.eyebrow} title={form.title} description={form.description} centered /><LeadForm /></div></section>
+        <section className="stitch-section stitch-registration" id="register" aria-labelledby="register-title"><div className="site-shell stitch-registration-shell"><SectionHeader id="register-title" eyebrow={form.eyebrow} title={form.title} description={form.description} centered /><LeadForm enabled={leadsEnabled} /></div></section>
       </main>
 
       <footer className="stitch-footer"><div className="site-shell"><div className="stitch-footer-grid"><div className="stitch-footer-brand"><Image className="stitch-footer-logo" src="/brand/daily-habit-logo.png" alt="Daily Habit Fitness Gym" width={1200} height={630} /><p>{footer.description}</p><div className="stitch-footer-verified"><Icon name="verified" />{footer.verification}</div></div><div className="stitch-footer-links"><span>Explore</span>{footer.explore.map(([label, href]) => <a href={href} key={label}>{label}</a>)}</div><div className="stitch-footer-links"><span>Member Support</span>{footer.support.map(([label, href]) => <a href={href} key={label}>{label}</a>)}</div><div className="stitch-footer-links"><span>Facility</span><p>{footer.facility}</p><p className="stitch-footer-location"><Icon name="location_on" />{footer.location}</p></div></div><div className="stitch-footer-bottom"><span>{footer.copyright}</span><div><a href="#privacy-policy">Privacy Policy</a><a href="#accessibility">Accessibility Statement</a><a href="#terms">Terms of Service</a></div></div></div></footer>
