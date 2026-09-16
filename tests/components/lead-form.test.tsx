@@ -17,12 +17,12 @@ describe("LeadForm", () => {
     render(<LeadForm />);
     await user.type(screen.getByLabelText(/name/i), "Alex Santos");
     await user.type(screen.getByLabelText(/email/i), "alex@example.com");
-    await user.selectOptions(screen.getByLabelText(/what do you want/i), "Get stronger");
+    await user.selectOptions(screen.getByLabelText(/primary fitness goal/i), "Get stronger");
     await user.click(screen.getByLabelText(/i agree/i));
-    await user.click(screen.getByRole("button", { name: /send my interest/i }));
+    await user.click(screen.getByRole("button", { name: /book my intro session/i }));
 
     expect(fetchMock).toHaveBeenCalledWith("/api/leads", expect.objectContaining({ method: "POST" }));
-    expect(await screen.findByText("Your first step is logged.")).toBeInTheDocument();
+    expect(await screen.findByText("Introductory Session Request Received!")).toBeInTheDocument();
   });
 
   it("shows server field errors without losing the form", async () => {
@@ -33,9 +33,9 @@ describe("LeadForm", () => {
     render(<LeadForm />);
     await user.type(screen.getByLabelText(/name/i), "Alex Santos");
     await user.type(screen.getByLabelText(/email/i), "alex@example.com");
-    await user.selectOptions(screen.getByLabelText(/what do you want/i), "Get stronger");
+    await user.selectOptions(screen.getByLabelText(/primary fitness goal/i), "Get stronger");
     await user.click(screen.getByLabelText(/i agree/i));
-    await user.click(screen.getByRole("button", { name: /send my interest/i }));
+    await user.click(screen.getByRole("button", { name: /book my intro session/i }));
 
     expect(await screen.findByText("Please enter a valid email address.")).toBeInTheDocument();
     expect(screen.getByDisplayValue("Alex Santos")).toBeInTheDocument();

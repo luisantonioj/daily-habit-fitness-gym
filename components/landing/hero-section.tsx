@@ -7,7 +7,7 @@ function ArrowForward() {
 
 export function HeroSection() {
   const { hero } = stitchContent;
-  const [titleBefore, titleHighlight, titleAfter] = hero.title.split("Changes");
+  const [titleBefore, titleAfter = ""] = hero.title.split("Changes");
 
   return (
     <section className="stitch-hero" id="top" aria-labelledby="hero-title">
@@ -16,7 +16,7 @@ export function HeroSection() {
       <div className="site-shell stitch-hero-grid">
         <div className="stitch-hero-copy">
           <div className="stitch-badge"><i aria-hidden="true" /><span>{hero.badge}</span></div>
-          <h1 id="hero-title">{titleBefore}<span>{titleHighlight}</span>{titleAfter}</h1>
+          <h1 id="hero-title">{titleBefore}<span>Changes</span>{titleAfter}</h1>
           <p>{hero.description}</p>
           <div className="stitch-hero-actions">
             <a className="stitch-button stitch-button-primary" href="#register">{hero.primaryCta}<ArrowForward /></a>
