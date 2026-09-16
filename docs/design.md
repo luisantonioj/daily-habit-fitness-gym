@@ -139,3 +139,7 @@ The lead form must preserve entered values after recoverable errors and prevent 
 - Keep calls to action specific: “Ask about membership”, “Plan your first visit”, or “Register your interest”.
 - Preserve the sample's exact content during this adaptation, including any sample placeholders.
 - Before production launch, require coach verification of prices, opening hours, address details, coach credentials, testimonials, metrics, amenities, and contact details.
+
+## Final visual/content approval gate
+
+The exact sample adaptation is intentionally visible in the current build, but it is not evidence that the sample facts are true for Daily Habit. Before launch, review the centralized content model against the coach-approved source of truth. Confirm every visible claim, metric, person/name, price or tier placeholder, testimonial and permission, service, amenity, address, hour, contact detail, certification statement, and remote image URL. Replace approved media with local coach-owned assets when available while preserving informative alt text, poster/caption support, and the same responsive composition.

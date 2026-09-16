@@ -34,6 +34,29 @@ For each photo or video, provide:
 
 The current Stitch adaptation intentionally keeps the sample image URLs remote. Verify that each `lh3.googleusercontent.com` asset still loads, has acceptable usage rights, and matches its alt text before production. Later coach media may be copied into `public/media/` after approval.
 
+### Exact sample-content approval inventory
+
+The current frontend intentionally publishes the sample values from `content/site.ts` as temporary content. The coach must review each category, not only the placeholder strings:
+
+| Category | Current sample material requiring approval |
+| --- | --- |
+| Claims and metrics | Beginner-first positioning, “500+ Strong,” “88% Milestone,” “412 members,” coach coverage, 24/7 access, sanitization, and other performance or safety statements. |
+| People and social proof | Coach Sarah, Coach Marcus, Elena M., David K., Priya S., their roles, member durations, portraits, quotes, and permission to publish. |
+| Memberships | Starter Habit, Guided Habit, All-In Milestone, tier descriptions, “Standard/Guided/Premium” price placeholders, inclusions, exclusions, and cancellation language. |
+| Services and amenities | Habit circuits, coaching formats, equipment guidance, locker and shower amenities, parking, kiosk/check-in, and virtual-tour feature claims. |
+| Visit details | Metro Central Athletic Complex, address placeholder, operating-hours rows, contact email/phone placeholder, parking statement, directions label, and facility hours. |
+| Media and branding | Every remote `lh3.googleusercontent.com` URL, image subject, crop, alt text, poster/caption needs, usage rights, local logo files, and footer certification wording. |
+
+Approval must be recorded before public launch. A sample value can be replaced with confirmed copy or removed; do not silently turn an unconfirmed sample value into an official claim.
+
+### Content replacement procedure
+
+1. Update the relevant typed value or media object in `content/site.ts`; keep the section IDs, form field names, and API contract unchanged.
+2. For coach media, add the approved file under `public/media/` and record rights, focal crop, alt text, caption, poster, and transcript details in the handoff checklist.
+3. Remove the replaced remote URL only after its replacement has been approved and tested. If a remote host must remain, update `next.config.ts` and the media availability check together.
+4. Review both themes and mobile/desktop crops, then run lint, typecheck, unit/API tests, Playwright/Axe checks, and the production build.
+5. Commit content and media changes separately from backend or infrastructure changes, using a message that identifies the approved content update.
+
 ## Google Sheet provisioning
 
 1. Create a private spreadsheet and a `Leads` tab.
@@ -71,6 +94,7 @@ The default digest schedule is `0 0 * * *` UTC, corresponding to 08:00 Asia/Mani
 - Verify dark mode is the default and the light-mode toggle persists after reload.
 - Review both themes for contrast, logo treatment, focus states, and responsive layout.
 - Replace all `[OWNER TO CONFIRM]` copy.
+- Approve or replace every exact Stitch sample claim, name, metric, price placeholder, testimonial, amenity, address, hour, contact detail, and remote image listed above.
 - Replace media placeholders with approved assets.
 - Add the final privacy notice link and text.
 - Verify page title, description, social preview, and canonical URL.
