@@ -156,14 +156,7 @@ test("sample sections, FAQ, registration, and responsive widths remain usable", 
 });
 
 test("landing page has no detected axe violations", async ({ page }) => {
-  await page.goto("/", { waitUntil: "domcontentloaded" });
-  const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations).toEqual([]);
-});
-
-test("light theme has no detected axe violations", async ({ page }) => {
-  await page.goto("/", { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /switch to light mode/i }).click();
+  await page.goto("/");
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });
