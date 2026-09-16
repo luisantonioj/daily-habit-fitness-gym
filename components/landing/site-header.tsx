@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 const links = [
   ["Benefits", "#benefits"],
@@ -36,16 +37,18 @@ export function SiteHeader() {
           <span className="brand-name">Daily Habit<small>Fitness Gym</small></span>
         </a>
 
-        <button className="menu-toggle" type="button" aria-expanded={isOpen} aria-controls="primary-navigation" onClick={() => setIsOpen((open) => !open)}>
-          <span className="sr-only">{isOpen ? "Close" : "Open"} navigation</span>
-          <span aria-hidden="true" className="menu-toggle-lines"><i /><i /><i /></span>
-        </button>
-
         <nav id="primary-navigation" className={`main-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
           {links.map(([label, href]) => <a href={href} key={href} onClick={closeMenu}>{label}</a>)}
         </nav>
 
-        <a className="button button-small button-dark header-cta" href="#register" onClick={closeMenu}>Register interest <ArrowUpRight /></a>
+        <div className="header-actions">
+          <ThemeToggle />
+          <button className="menu-toggle" type="button" aria-expanded={isOpen} aria-controls="primary-navigation" onClick={() => setIsOpen((open) => !open)}>
+            <span className="sr-only">{isOpen ? "Close" : "Open"} navigation</span>
+            <span aria-hidden="true" className="menu-toggle-lines"><i /><i /><i /></span>
+          </button>
+          <a className="button button-small button-dark header-cta" href="#register" onClick={closeMenu}>Register interest <ArrowUpRight /></a>
+        </div>
       </div>
     </header>
   );
