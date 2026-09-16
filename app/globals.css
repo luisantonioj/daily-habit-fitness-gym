@@ -1626,3 +1626,310 @@ button, input, select, textarea { font: inherit; }
     transition: none;
   }
 }
+
+/* Stitch reference registration and footer */
+.stitch-registration {
+  background: var(--stitch-surface);
+}
+
+.stitch-registration-shell {
+  max-width: 52rem;
+}
+
+.stitch-registration .lead-form {
+  margin-top: 2.5rem;
+  padding: 1.35rem;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.75rem;
+  background: var(--stitch-low);
+  box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.2);
+}
+
+.stitch-registration .field-group {
+  gap: 0.5rem;
+}
+
+.stitch-registration .field-group label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.stitch-registration .field-group label > span:first-child {
+  color: var(--stitch-text);
+}
+
+.stitch-registration .field-group label > span:first-child > span {
+  color: var(--stitch-accent);
+}
+
+.stitch-registration .field-hint {
+  color: var(--stitch-secondary);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.stitch-registration .field-group input,
+.stitch-registration .field-group select,
+.stitch-registration .field-group textarea {
+  border-color: var(--stitch-border);
+  border-radius: 0.35rem;
+  background: var(--stitch-surface);
+  color: var(--stitch-text);
+  font-size: 0.82rem;
+}
+
+.stitch-registration .field-group input,
+.stitch-registration .field-group select {
+  min-height: 3.15rem;
+}
+
+.stitch-registration .field-group input::placeholder,
+.stitch-registration .field-group textarea::placeholder {
+  color: var(--stitch-secondary);
+  opacity: 0.75;
+}
+
+.stitch-registration .field-group select option {
+  background: var(--stitch-surface);
+  color: var(--stitch-text);
+}
+
+.stitch-registration .field-group input:hover,
+.stitch-registration .field-group select:hover,
+.stitch-registration .field-group textarea:hover,
+.stitch-registration .field-group input:focus,
+.stitch-registration .field-group select:focus,
+.stitch-registration .field-group textarea:focus {
+  border-color: var(--stitch-accent);
+  background: var(--stitch-high);
+}
+
+.stitch-registration .form-consent {
+  margin-top: 0.25rem;
+}
+
+.stitch-registration .form-consent label {
+  color: var(--stitch-secondary);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+.stitch-registration .form-consent label > span {
+  color: var(--stitch-accent);
+}
+
+.stitch-registration .form-submit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+  padding-top: 0.35rem;
+}
+
+.stitch-registration .form-submit {
+  width: 100%;
+  min-height: 3.25rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: var(--stitch-accent);
+  color: var(--stitch-on-accent);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 800;
+  box-shadow: 0 0.75rem 1.5rem rgb(243 231 0 / 0.16);
+}
+
+.stitch-registration .form-submit:hover {
+  background: #fff86b;
+}
+
+.stitch-registration .form-submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.stitch-registration .form-submit-row p {
+  color: var(--stitch-secondary);
+  font-size: 0.67rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.stitch-registration .form-submit-row p span {
+  color: var(--stitch-accent);
+}
+
+.stitch-registration .form-success {
+  margin-top: 2.5rem;
+  border-color: color-mix(in srgb, var(--stitch-accent) 50%, var(--stitch-border));
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--stitch-accent) 10%, var(--stitch-low));
+}
+
+.stitch-registration .form-success strong {
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 1rem;
+}
+
+.stitch-registration .form-success p {
+  color: var(--stitch-secondary);
+}
+
+.stitch-registration .form-reset {
+  color: var(--stitch-accent);
+}
+
+.stitch-footer {
+  padding: 4.5rem 0 2rem;
+  border-top: 1px solid var(--stitch-border);
+  background: var(--stitch-surface);
+  color: var(--stitch-text);
+}
+
+.stitch-footer-grid {
+  display: grid;
+  gap: 2.25rem;
+  padding-bottom: 2.5rem;
+}
+
+.stitch-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stitch-footer-logo {
+  display: block;
+  width: min(13rem, 78vw);
+  height: auto;
+  border-radius: 0.45rem;
+  background: #111416;
+}
+
+.stitch-footer-brand p,
+.stitch-footer-links p {
+  max-width: 24rem;
+  margin: 0;
+  color: var(--stitch-secondary);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+.stitch-footer-verified {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--stitch-secondary);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.stitch-footer-verified .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-footer-links {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.stitch-footer-links > span {
+  margin-bottom: 0.25rem;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.stitch-footer-links a {
+  width: fit-content;
+  color: var(--stitch-secondary);
+  font-size: 0.74rem;
+  text-decoration: none;
+}
+
+.stitch-footer-links a:hover {
+  color: var(--stitch-text);
+}
+
+.stitch-footer-location {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stitch-footer-location .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--stitch-border);
+  color: var(--stitch-secondary);
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+
+.stitch-footer-bottom > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.stitch-footer-bottom a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.stitch-footer-bottom a:hover {
+  color: var(--stitch-text);
+}
+
+@media (min-width: 640px) {
+  .stitch-registration .lead-form {
+    padding: 2rem;
+  }
+
+  .stitch-registration .form-submit-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .stitch-registration .form-submit {
+    width: auto;
+    min-width: 14rem;
+  }
+
+  .stitch-registration .form-submit-row p {
+    flex: 1;
+    text-align: left;
+  }
+}
+
+@media (min-width: 900px) {
+  .stitch-footer-grid {
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+  }
+
+  .stitch-footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

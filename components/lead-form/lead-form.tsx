@@ -1,6 +1,7 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
+import { stitchContent } from "@/content/site";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -17,6 +18,7 @@ const goals = [
 ];
 
 export function LeadForm() {
+  const formContent = stitchContent.form;
   const [state, setState] = useState<FormState>("idle");
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
@@ -62,7 +64,7 @@ export function LeadForm() {
 
       form.reset();
       setState("success");
-      setMessage("Thanks — your interest is on its way to the coach. Check your inbox for confirmation.");
+      setMessage(formContent.successCopy);
     } catch {
       setState("error");
       setMessage("We could not connect right now. Please check your connection and try again.");
@@ -77,11 +79,11 @@ export function LeadForm() {
       <div className="form-success" role="status" aria-live="polite">
         <span className="success-icon" aria-hidden="true">✓</span>
         <div>
-          <strong>Your first step is logged.</strong>
+          <strong>{formContent.successTitle}</strong>
           <p>{message}</p>
         </div>
         <button className="form-reset" type="button" onClick={() => setState("idle")}>
-          Send another inquiry
+          Book another intro session
         </button>
       </div>
     );
@@ -89,32 +91,27 @@ export function LeadForm() {
 
   return (
     <form className="lead-form" onSubmit={handleSubmit} noValidate>
-      <div className="form-heading">
-        <p className="form-kicker">Registration of interest</p>
-        <p>Share a little about where you are starting. The coach will follow up with the latest details.</p>
-      </div>
-
       <div className="form-grid form-grid-two">
         <div className="field-group">
-          <label htmlFor="lead-name">Name <span aria-hidden="true">*</span></label>
-          <input id="lead-name" name="name" type="text" autoComplete="name" placeholder="Your name" aria-invalid={Boolean(getError("name"))} aria-describedby={describedBy("name")} required />
+          <label htmlFor="lead-name"><span>Full Name <span aria-hidden="true">*</span></span><span className="field-hint">First &amp; Last</span></label>
+          <input id="lead-name" name="name" type="text" autoComplete="name" placeholder="e.g. Alex Henderson" aria-invalid={Boolean(getError("name"))} aria-describedby={describedBy("name")} required />
           {getError("name") ? <span className="field-error" id="name-error">{getError("name")}</span> : null}
         </div>
         <div className="field-group">
-          <label htmlFor="lead-email">Email <span aria-hidden="true">*</span></label>
-          <input id="lead-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" aria-invalid={Boolean(getError("email"))} aria-describedby={describedBy("email")} required />
+          <label htmlFor="lead-email"><span>Email Address <span aria-hidden="true">*</span></span><span className="field-hint">We respect your inbox</span></label>
+          <input id="lead-email" name="email" type="email" autoComplete="email" placeholder="alex@example.com" aria-invalid={Boolean(getError("email"))} aria-describedby={describedBy("email")} required />
           {getError("email") ? <span className="field-error" id="email-error">{getError("email")}</span> : null}
         </div>
       </div>
 
       <div className="form-grid form-grid-two">
         <div className="field-group">
-          <label htmlFor="lead-phone">Phone <span className="optional-label">Optional</span></label>
-          <input id="lead-phone" name="phone" type="tel" autoComplete="tel" placeholder="09XX XXX XXXX" aria-invalid={Boolean(getError("phone"))} aria-describedby={describedBy("phone")} />
+          <label htmlFor="lead-phone"><span>Phone Number</span><span className="field-hint">Optional</span></label>
+          <input id="lead-phone" name="phone" type="tel" autoComplete="tel" placeholder="(555) 000-0000" aria-invalid={Boolean(getError("phone"))} aria-describedby={describedBy("phone")} />
           {getError("phone") ? <span className="field-error" id="phone-error">{getError("phone")}</span> : null}
         </div>
         <div className="field-group">
-          <label htmlFor="lead-contact">Preferred contact</label>
+          <label htmlFor="lead-contact">Preferred Contact Method</label>
           <select id="lead-contact" name="preferredContactMethod" defaultValue="email" aria-invalid={Boolean(getError("preferredContactMethod"))} aria-describedby={describedBy("preferredContactMethod")}>
             <option value="email">Email</option>
             <option value="phone">Phone</option>
@@ -125,7 +122,7 @@ export function LeadForm() {
       </div>
 
       <div className="field-group">
-        <label htmlFor="lead-goal">What do you want to work toward?</label>
+        <label htmlFor="lead-goal">Primary Fitness Goal</label>
         <select id="lead-goal" name="fitnessGoal" defaultValue="" aria-invalid={Boolean(getError("fitnessGoal"))} aria-describedby={describedBy("fitnessGoal")} required>
           <option value="" disabled>Select a starting point</option>
           {goals.map((goal) => <option key={goal} value={goal}>{goal}</option>)}
@@ -134,8 +131,8 @@ export function LeadForm() {
       </div>
 
       <div className="field-group">
-        <label htmlFor="lead-message">Anything you want us to know? <span className="optional-label">Optional</span></label>
-        <textarea id="lead-message" name="message" rows={3} placeholder="Questions, schedule, or goals..." aria-invalid={Boolean(getError("message"))} aria-describedby={describedBy("message")} />
+        <label htmlFor="lead-message"><span>Message / Questions</span><span className="field-hint">Optional</span></label>
+        <textarea id="lead-message" name="message" rows={3} placeholder="Tell us about your schedule or fitness background..." aria-invalid={Boolean(getError("message"))} aria-describedby={describedBy("message")} />
         {getError("message") ? <span className="field-error" id="message-error">{getError("message")}</span> : null}
       </div>
 
@@ -146,7 +143,7 @@ export function LeadForm() {
 
       <div className="form-consent">
         <input id="lead-consent" name="consent" type="checkbox" aria-invalid={Boolean(getError("consent"))} aria-describedby={describedBy("consent")} required />
-        <label htmlFor="lead-consent">I agree that Daily Habit Fitness Gym may use these details to respond to my inquiry. <span aria-hidden="true">*</span></label>
+        <label htmlFor="lead-consent">I agree to the privacy policy and consent to Daily Habit contacting me regarding gym updates and introductory sessions. <span aria-hidden="true">*</span></label>
       </div>
       {getError("consent") ? <span className="field-error" id="consent-error">{getError("consent")}</span> : null}
 
@@ -154,10 +151,10 @@ export function LeadForm() {
 
       <div className="form-submit-row">
         <button className="button button-primary form-submit" type="submit" disabled={state === "submitting"}>
-          {state === "submitting" ? "Sending..." : "Send my interest"}
+          {state === "submitting" ? formContent.submitLoading : formContent.submit}
           <span aria-hidden="true">↗</span>
         </button>
-        <p>Required fields are marked <span aria-hidden="true">*</span>. No medical information needed.</p>
+        <p>{formContent.finePrint}</p>
       </div>
     </form>
   );
