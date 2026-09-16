@@ -61,6 +61,7 @@ Open `http://localhost:3000` in a browser. Use the test and build commands below
 | `EMAIL_FROM` | Verified sender, for example `Daily Habit Fitness Gym <hello@example.com>`. |
 | `COACH_EMAIL` | Destination for the daily lead digest. |
 | `CRON_SECRET` | Secret used to protect the scheduled digest route. |
+| `LEADS_ENABLED` | Server-side gate for lead capture; use `false` for UI-only Preview deployments and `true` only after storage and notification services are ready. |
 | `NEXT_PUBLIC_SITE_URL` | Canonical public site URL for email links and metadata. |
 | `LEADS_TIME_ZONE` | Display timezone; default is `Asia/Manila`. |
 
@@ -83,6 +84,8 @@ Never commit `.env.local`, service-account JSON, private keys, or live lead data
 5. Confirm the production cron request contains the expected `CRON_SECRET` authorization header.
 
 The default daily digest is scheduled for 00:00 UTC, which corresponds to 08:00 in Asia/Manila. Vercel cron timing and plan limits must be checked during deployment.
+
+For a UI-only Preview, set `LEADS_ENABLED=false`. The form remains visible for review but does not submit, and direct lead API calls return a generic `503`. Enable lead capture only in a Preview with test services first, then in Production after the Sheet, Resend, and cron smoke tests pass.
 
 ## Project structure
 

@@ -29,9 +29,26 @@ const payload = {
 describe("POST /api/leads", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env.LEADS_ENABLED = "true";
     storeLead.mockResolvedValue({ leadId: "lead-123", submittedAt: "2026-09-11T00:00:00.000Z", rowNumber: 2 });
     sendLeadConfirmation.mockResolvedValue({ id: "email-123" });
     updateLeadConfirmation.mockResolvedValue(undefined);
+  });
+
+  it("returns 503 without touching providers when lead capture is disabled", async () => {
+    process.env.LEADS_ENABLED = "false";
+
+    const response = await POST(new Request("http://localhost/api/leads", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },
+    }));
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({ ok: false, error: "Registration is temporarily unavailable." });
+    expect(storeLead).not.toHaveBeenCalled();
+    expect(sendLeadConfirmation).not.toHaveBeenCalled();
+    expect(updateLeadConfirmation).not.toHaveBeenCalled();
   });
 
   it("returns field errors and creates no side effects for invalid input", async () => {

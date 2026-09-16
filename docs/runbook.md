@@ -89,6 +89,12 @@ Approval must be recorded before public launch. A sample value can be replaced w
 
 The default digest schedule is `0 0 * * *` UTC, corresponding to 08:00 Asia/Manila. Vercel plan-specific timing and cron limits should be confirmed before promising an exact delivery minute.
 
+### UI-only Preview deployment
+
+For the first visual review, deploy the branch as a Vercel Preview with only `LEADS_ENABLED=false`, `NEXT_PUBLIC_SITE_URL`, and `LEADS_TIME_ZONE` configured. The registration form remains visible but its submission control is disabled, displays the preview notice, and makes no request to `/api/leads`; direct API calls return `503`. Do not configure Google Sheets, Resend, coach email, or production cron secrets, and do not attach the production domain or promote this deployment for public lead collection.
+
+When lead services are ready, set `LEADS_ENABLED=true` only in a Preview environment with a test Sheet and test email recipient. Complete the full lead and digest smoke tests before enabling the same flag in Production. Telegram is deferred to a later additive notification phase; Google Sheets remains the source of truth and Telegram failures must never affect stored leads.
+
 ## Prelaunch checklist
 
 - Verify dark mode is the default and the light-mode toggle persists after reload.
