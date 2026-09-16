@@ -80,6 +80,12 @@ The default digest schedule is `0 0 * * *` UTC, corresponding to 08:00 Asia/Mani
 - Submit a test lead and confirm all notification states.
 - Confirm the coach knows that the Sheet is the v1 lead list.
 
+## Visual QA handoff
+
+Review the deployed page at minimum at 320px, 390px, 768px, and 1440px widths in both themes. Confirm that the logo is legible, the header CTA and theme toggle remain reachable, mobile navigation opens and closes by keyboard, no section causes horizontal scrolling, and all focus indicators remain visible. Check the hero and media placeholders for stable aspect ratios, verify that yellow actions use dark text, and confirm the light theme remains within the Daily Habit black/white/yellow/slate palette.
+
+Before launch, replace placeholders only from the coach-approved handoff: exact gym name/tagline, address and directions, hours, contact/social links, rates and inclusions, services and facilities, coach/team claims, testimonials with permission, privacy wording, and approved photos/videos. Remove any invented business facts copied from visual references or generated mockups.
+
 ## Troubleshooting
 
 ### Leads are not appearing in the Sheet

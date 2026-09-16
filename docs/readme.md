@@ -20,7 +20,7 @@ The first release does not include payments, completed membership enrollment, ac
 
 - Next.js App Router with TypeScript.
 - React for UI composition.
-- Tailwind CSS plus project CSS variables for responsive styling and design tokens.
+- Tailwind CSS plus project CSS variables for responsive styling, Stitch-inspired layout tokens, and dark/light themes.
 - Zod for shared request validation.
 - Google Sheets API for the `Leads` worksheet.
 - Resend for transactional emails.
@@ -88,8 +88,11 @@ The default daily digest is scheduled for 00:00 UTC, which corresponds to 08:00 
 
 ```text
 app/                    Next.js routes, layout, page, and API handlers
-components/             Reusable landing-page and form components
+components/landing/     Landing sections and responsive site header
+components/theme/       Persisted dark/light theme toggle
+components/lead-form/   Lead form and submission states
 lib/                    Validation, Google Sheets, email, and shared utilities
+public/brand/           Supplied Daily Habit logo lockup and mark
 public/media/           Approved coach-provided photos and videos
 tests/                  Unit, integration, accessibility, and browser tests
 docs/                   Product, engineering, architecture, design, and skill context
@@ -110,5 +113,9 @@ npm run build
 ## Content ownership
 
 Business claims, prices, hours, address, testimonials, coach biography, social links, and media must be confirmed by the coach before release. Until then, use `[OWNER TO CONFIRM]` rather than inventing content.
+
+## Theme and brand handoff
+
+Dark mode is the default. Visitors can switch to light mode from the header; the selection is stored locally under `daily-habit-theme` and is not submitted with lead data. Both modes use the same `#111416` black, `#FFF200` electric yellow, white, and slate-gray brand family. Keep the supplied files in `public/brand/` unchanged and use only coach-approved media in `public/media/`. Before replacing a placeholder, record the approved filename, usage rights, alt text, crop, caption, and video poster/transcript in the content handoff.
 
 See the remaining documentation for the product context, engineering rules, architecture, design system, `grill-me` workflow, and the [content handoff and deployment runbook](runbook.md).
