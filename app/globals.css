@@ -22,6 +22,17 @@
   --content-max: 78rem;
   --font-display: "Arial Narrow", "Arial Black", Impact, sans-serif;
   --font-body: Inter, Arial, Helvetica, sans-serif;
+  --stitch-bg: #111416;
+  --stitch-surface: #1d2022;
+  --stitch-low: #191c1e;
+  --stitch-high: #272a2c;
+  --stitch-highest: #323537;
+  --stitch-text: #e1e2e5;
+  --stitch-secondary: #c3c7cb;
+  --stitch-variant: #ccc7aa;
+  --stitch-accent: #f3e700;
+  --stitch-on-accent: #353200;
+  --stitch-border: #323537;
 }
 
 [data-theme="light"] {
@@ -39,6 +50,17 @@
   --color-border: rgb(17 20 22 / 0.14);
   --color-danger: #b64238;
   --color-focus: #2859c5;
+  --stitch-bg: #f3f0e9;
+  --stitch-surface: #ffffff;
+  --stitch-low: #e7e3da;
+  --stitch-high: #e1dfd7;
+  --stitch-highest: #d1cec4;
+  --stitch-text: #111416;
+  --stitch-secondary: #526066;
+  --stitch-variant: #66625a;
+  --stitch-accent: #f3e700;
+  --stitch-on-accent: #353200;
+  --stitch-border: #cbc8bd;
 }
 
 * { box-sizing: border-box; }
@@ -559,4 +581,1048 @@ button, input, select, textarea { font: inherit; }
   .stitch-nav { gap: 0.8rem; }
   .stitch-nav a { font-size: 0.68rem; }
   .stitch-hero-grid { gap: 4rem; }
+}
+
+/* Stitch reference lower sections */
+.stitch-page {
+  background: var(--stitch-bg);
+  color: var(--stitch-text);
+}
+
+.stitch-section {
+  padding: 4.75rem 0;
+}
+
+.stitch-eyebrow {
+  display: inline-block;
+  color: var(--stitch-accent);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.stitch-section-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.stitch-section-header {
+  max-width: 42rem;
+}
+
+.stitch-section-header.is-centered {
+  max-width: 46rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.stitch-section-header h2 {
+  margin: 0.65rem 0 0;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.06;
+}
+
+.stitch-section-header p {
+  max-width: 40rem;
+  margin: 1rem 0 0;
+  color: var(--stitch-secondary);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.stitch-section-header.is-centered p {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.stitch-section-index {
+  color: var(--stitch-variant);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.stitch-benefits,
+.stitch-coaching,
+.stitch-memberships,
+.stitch-faq {
+  background: var(--stitch-low);
+}
+
+.stitch-benefit-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stitch-benefit-card {
+  display: flex;
+  min-height: 15rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.3rem;
+  padding: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 80%, transparent);
+  border-radius: 0.7rem;
+  background: var(--stitch-surface);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.12);
+}
+
+.stitch-card-icon {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 0.45rem;
+  background: var(--stitch-high);
+  color: var(--stitch-accent);
+}
+
+.stitch-card-icon .material-symbols-outlined {
+  font-size: 1.45rem;
+}
+
+.stitch-card-copy h3,
+.stitch-service-body h3,
+.stitch-coach-profile h3,
+.stitch-membership-card h3,
+.stitch-location-cards h3 {
+  margin: 0;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.stitch-card-copy p,
+.stitch-service-body p,
+.stitch-coach-profile-body p,
+.stitch-feed-body p,
+.stitch-testimonial p,
+.stitch-location-cards p {
+  margin: 0.65rem 0 0;
+  color: var(--stitch-secondary);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.stitch-card-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--stitch-border) 75%, transparent);
+  color: var(--stitch-variant);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.stitch-card-tag .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-experience,
+.stitch-tour,
+.stitch-community,
+.stitch-location {
+  background: var(--stitch-bg);
+}
+
+.stitch-service-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.stitch-service-card {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 78%, transparent);
+  border-radius: 0.75rem;
+  background: var(--stitch-surface);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.1);
+}
+
+.stitch-service-media,
+.stitch-coach-photo,
+.stitch-feed-image,
+.stitch-tour-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--stitch-high);
+}
+
+.stitch-service-media {
+  height: 16rem;
+}
+
+.stitch-service-media img,
+.stitch-coach-photo img,
+.stitch-feed-image img,
+.stitch-tour-media img {
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.stitch-service-card:hover .stitch-service-media img,
+.stitch-feed-card:hover .stitch-feed-image img {
+  transform: scale(1.04);
+}
+
+.stitch-service-shade,
+.stitch-feed-shade,
+.stitch-tour-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(17 20 22 / 0.9), transparent 65%);
+  pointer-events: none;
+}
+
+.stitch-service-label,
+.stitch-service-corner,
+.stitch-tour-duration {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.28rem;
+  background: rgb(17 20 22 / 0.82);
+  color: #ffffff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stitch-service-label {
+  bottom: 0.75rem;
+  left: 0.75rem;
+}
+
+.stitch-service-label .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 0.75rem;
+}
+
+.stitch-service-corner {
+  top: 0.75rem;
+  right: 0.75rem;
+  color: var(--stitch-variant);
+}
+
+.stitch-play,
+.stitch-tour-play {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.65);
+  border-radius: 50%;
+  background: rgb(17 20 22 / 0.65);
+  color: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+.stitch-play .material-symbols-outlined,
+.stitch-tour-play .material-symbols-outlined {
+  font-size: 1.7rem;
+}
+
+.stitch-service-body {
+  padding: 1.25rem;
+}
+
+.stitch-service-body ul,
+.stitch-membership-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stitch-service-body li {
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.25rem;
+  background: var(--stitch-high);
+  color: var(--stitch-secondary);
+  font-size: 0.64rem;
+  font-weight: 600;
+}
+
+.stitch-service-body li.is-accent {
+  background: color-mix(in srgb, var(--stitch-accent) 18%, var(--stitch-high));
+  color: var(--stitch-variant);
+}
+
+.stitch-coach-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.stitch-coach-profile {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 80%, transparent);
+  border-radius: 0.75rem;
+  background: var(--stitch-surface);
+}
+
+.stitch-coach-photo {
+  aspect-ratio: 1.35;
+}
+
+.stitch-coach-photo::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(17 20 22 / 0.72), transparent 55%);
+  content: "";
+}
+
+.stitch-coach-label {
+  position: absolute;
+  z-index: 1;
+  bottom: 0.85rem;
+  left: 0.85rem;
+  color: #ffffff;
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stitch-coach-profile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.stitch-coach-role,
+.stitch-feed-meta span,
+.stitch-testimonial-person small,
+.stitch-location-cards dl,
+.stitch-membership-note {
+  color: var(--stitch-variant);
+  font-size: 0.68rem;
+}
+
+.stitch-coach-profile-body h3 {
+  margin-top: 0.25rem;
+  font-size: 1.35rem;
+}
+
+.stitch-coach-profile-body p {
+  color: var(--stitch-text);
+  font-size: 0.95rem;
+}
+
+.stitch-coach-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--stitch-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.stitch-coach-note .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-tour-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.stitch-tour-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+}
+
+.stitch-tour-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stitch-tour-features span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.3rem;
+  color: var(--stitch-secondary);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.stitch-tour-features .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-tour-media {
+  min-height: 20rem;
+  aspect-ratio: 1.15;
+  border-radius: 0.75rem;
+}
+
+.stitch-tour-media img {
+  position: absolute;
+  inset: 0;
+}
+
+.stitch-tour-duration {
+  right: 0.8rem;
+  bottom: 0.8rem;
+}
+
+.stitch-membership-grid {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 2.5rem;
+}
+
+.stitch-membership-card {
+  position: relative;
+  display: flex;
+  min-height: 31rem;
+  flex-direction: column;
+  padding: 1.45rem;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.7rem;
+  background: var(--stitch-surface);
+}
+
+.stitch-membership-card.is-featured {
+  border-color: var(--stitch-accent);
+  box-shadow: 0 0 0 1px var(--stitch-accent), 0 1.4rem 3rem rgb(0 0 0 / 0.16);
+}
+
+.stitch-tier-badge {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 1.5rem;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--stitch-high);
+  color: var(--stitch-variant);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stitch-membership-card.is-featured .stitch-tier-badge {
+  background: var(--stitch-accent);
+  color: var(--stitch-on-accent);
+}
+
+.stitch-membership-card h3 {
+  margin-top: 1.3rem;
+  font-size: 1.35rem;
+}
+
+.stitch-membership-card > p {
+  min-height: 3.6rem;
+  margin: 0.7rem 0 0;
+  color: var(--stitch-secondary);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.stitch-tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: 1.3rem;
+}
+
+.stitch-tier-price strong {
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 2.1rem;
+  letter-spacing: -0.06em;
+}
+
+.stitch-tier-price span {
+  color: var(--stitch-variant);
+  font-size: 0.7rem;
+}
+
+.stitch-membership-card ul {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+.stitch-membership-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--stitch-secondary);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.stitch-membership-card li .material-symbols-outlined {
+  flex: 0 0 auto;
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-membership-card li.is-excluded {
+  color: var(--stitch-variant);
+  text-decoration: line-through;
+}
+
+.stitch-membership-card li.is-excluded .material-symbols-outlined {
+  color: var(--stitch-variant);
+}
+
+.stitch-tier-button {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.35rem;
+  color: var(--stitch-text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.stitch-tier-button:hover {
+  border-color: var(--stitch-accent);
+}
+
+.stitch-tier-button.is-primary {
+  border-color: var(--stitch-accent);
+  background: var(--stitch-accent);
+  color: var(--stitch-on-accent);
+}
+
+.stitch-community-favorite {
+  position: absolute;
+  top: -0.7rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.25rem;
+  background: var(--stitch-accent);
+  color: var(--stitch-on-accent);
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.stitch-community-favorite .material-symbols-outlined {
+  font-size: 0.9rem;
+}
+
+.stitch-membership-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  max-width: 42rem;
+  margin: 1.5rem auto 0;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.stitch-membership-note .material-symbols-outlined {
+  flex: 0 0 auto;
+  color: var(--stitch-accent);
+  font-size: 1rem;
+}
+
+.stitch-community-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.stitch-feed-card,
+.stitch-testimonial {
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 80%, transparent);
+  border-radius: 0.7rem;
+  background: var(--stitch-surface);
+}
+
+.stitch-feed-card {
+  overflow: hidden;
+}
+
+.stitch-feed-image {
+  height: 16rem;
+}
+
+.stitch-feed-body {
+  padding: 1.25rem;
+}
+
+.stitch-feed-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stitch-feed-meta b {
+  color: var(--stitch-text);
+  font-size: 0.78rem;
+}
+
+.stitch-feed-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.stitch-feed-tags span {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.22rem;
+  background: var(--stitch-high);
+  color: var(--stitch-variant);
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.stitch-feed-body blockquote {
+  margin: 1.1rem 0 0;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.stitch-feed-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--stitch-border);
+  color: var(--stitch-secondary);
+  font-size: 0.68rem;
+}
+
+.stitch-feed-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.stitch-feed-stats .material-symbols-outlined,
+.stitch-feed-stats b {
+  color: var(--stitch-accent);
+}
+
+.stitch-feed-stats .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.stitch-feed-stats b {
+  margin-left: auto;
+  font-size: 0.65rem;
+}
+
+.stitch-testimonial-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stitch-testimonial {
+  position: relative;
+  padding: 1rem;
+}
+
+.stitch-testimonial-person {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.stitch-testimonial-person img {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.stitch-testimonial-person div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.stitch-testimonial-person b {
+  color: var(--stitch-text);
+  font-size: 0.78rem;
+}
+
+.stitch-testimonial p {
+  max-width: 34rem;
+  margin-top: 0.85rem;
+  color: var(--stitch-text);
+  font-size: 0.82rem;
+}
+
+.stitch-testimonial-star {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--stitch-accent);
+}
+
+.stitch-testimonial-star .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.stitch-faq-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.stitch-faq-list {
+  border-top: 1px solid var(--stitch-border);
+}
+
+.stitch-faq-list details {
+  border-bottom: 1px solid var(--stitch-border);
+}
+
+.stitch-faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  color: var(--stitch-text);
+  cursor: pointer;
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.stitch-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.stitch-faq-list summary .material-symbols-outlined {
+  color: var(--stitch-accent);
+  transition: transform 180ms ease;
+}
+
+.stitch-faq-list details[open] summary .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+.stitch-faq-list details p {
+  max-width: 44rem;
+  margin: -0.25rem 0 1.2rem;
+  color: var(--stitch-secondary);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.stitch-location-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.stitch-location-cards {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stitch-location-cards article {
+  padding: 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 80%, transparent);
+  border-radius: 0.55rem;
+  background: var(--stitch-surface);
+}
+
+.stitch-location-cards article > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.stitch-location-cards article > div .material-symbols-outlined {
+  color: var(--stitch-accent);
+  font-size: 1.25rem;
+}
+
+.stitch-location-cards strong {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--stitch-text);
+  font-family: "Lexend", var(--font-body);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.stitch-location-cards dl {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.8rem 0 0;
+}
+
+.stitch-location-cards dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stitch-location-cards dt,
+.stitch-location-cards dd {
+  margin: 0;
+}
+
+.stitch-location-cards dd {
+  color: var(--stitch-secondary);
+  text-align: right;
+}
+
+.stitch-map {
+  position: relative;
+  min-height: 25rem;
+  overflow: hidden;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.75rem;
+  background: var(--stitch-high);
+}
+
+.stitch-map-art {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background-color: var(--stitch-high);
+  background-image: linear-gradient(115deg, transparent 0 43%, color-mix(in srgb, var(--stitch-secondary) 25%, transparent) 44% 45%, transparent 46%), linear-gradient(32deg, transparent 0 35%, color-mix(in srgb, var(--stitch-secondary) 18%, transparent) 36% 37%, transparent 38%), linear-gradient(90deg, transparent 0 18%, color-mix(in srgb, var(--stitch-secondary) 14%, transparent) 19% 20%, transparent 21% 67%, color-mix(in srgb, var(--stitch-secondary) 14%, transparent) 68% 69%, transparent 70%);
+}
+
+.stitch-map-art::after {
+  position: absolute;
+  top: 38%;
+  left: 52%;
+  width: 7rem;
+  height: 7rem;
+  border: 1.5rem solid color-mix(in srgb, var(--stitch-accent) 30%, transparent);
+  border-radius: 50%;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.stitch-map-callout {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--stitch-surface) 92%, transparent);
+  backdrop-filter: blur(0.8rem);
+}
+
+.stitch-map-callout > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.stitch-map-callout i {
+  display: block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--stitch-accent);
+  box-shadow: 0 0 0 0.3rem rgb(243 231 0 / 0.15);
+}
+
+.stitch-map-callout b,
+.stitch-map-callout span {
+  display: block;
+}
+
+.stitch-map-callout b {
+  color: var(--stitch-text);
+  font-size: 0.75rem;
+}
+
+.stitch-map-callout span {
+  margin-top: 0.15rem;
+  color: var(--stitch-secondary);
+  font-size: 0.62rem;
+}
+
+.stitch-map-callout a {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.3rem;
+  background: var(--stitch-accent);
+  color: var(--stitch-on-accent);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+[data-theme="light"] .stitch-hero {
+  background: #e8e3d8;
+  color: var(--stitch-text);
+}
+
+[data-theme="light"] .stitch-hero h1 span {
+  color: #5d6200;
+  text-decoration-color: rgb(93 98 0 / 0.35);
+}
+
+[data-theme="light"] .stitch-hero-copy > p,
+[data-theme="light"] .stitch-metric small,
+[data-theme="light"] .stitch-streak-card p {
+  color: var(--stitch-secondary);
+}
+
+[data-theme="light"] .stitch-badge,
+[data-theme="light"] .stitch-hero-card,
+[data-theme="light"] .stitch-coach-card,
+[data-theme="light"] .stitch-streak-card,
+[data-theme="light"] .stitch-metric {
+  background: var(--stitch-surface);
+}
+
+[data-theme="light"] .stitch-header-actions .theme-toggle,
+[data-theme="light"] .stitch-menu-toggle,
+[data-theme="light"] .coach-status {
+  border-color: var(--stitch-border);
+  background: var(--stitch-surface);
+  color: var(--stitch-text);
+}
+
+[data-theme="light"] .stitch-metric b,
+[data-theme="light"] .stitch-coach-identity b,
+[data-theme="light"] .stitch-live-label,
+[data-theme="light"] .stitch-coach-label {
+  color: var(--stitch-text);
+}
+
+[data-theme="light"] .stitch-metric,
+[data-theme="light"] .stitch-streak-card {
+  border: 1px solid var(--stitch-border);
+}
+
+@media (min-width: 640px) {
+  .stitch-section-header-row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .stitch-benefit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stitch-service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stitch-location-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stitch-location-cards article:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+  .stitch-section {
+    padding: 6.5rem 0;
+  }
+
+  .stitch-coach-grid,
+  .stitch-community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stitch-tour-grid,
+  .stitch-location-grid,
+  .stitch-faq-grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+
+  .stitch-location-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .stitch-location-cards article:last-child {
+    grid-column: auto;
+  }
+
+  .stitch-faq-grid {
+    align-items: start;
+  }
+}
+
+@media (min-width: 1100px) {
+  .stitch-benefit-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .stitch-membership-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stitch-service-media img,
+  .stitch-feed-image img,
+  .stitch-faq-list summary .material-symbols-outlined {
+    transition: none;
+  }
 }
