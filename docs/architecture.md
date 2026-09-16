@@ -37,6 +37,9 @@ app/
 components/
   landing/               Page sections and reusable content blocks
   lead-form/             Form, fields, validation messages, status UI
+  theme/                 Persisted dark/light theme toggle
+content/
+  site.ts                Typed Stitch sample content and remote media metadata
 lib/
   validation/            Zod schemas and normalized input
   sheets/                Google Sheets client and row operations
@@ -49,7 +52,9 @@ tests/                    Unit, integration, accessibility, and E2E coverage
 
 The landing page remains a single route. Theme state is a client-side presentation concern: `<html data-theme="dark|light">` is the source of truth, `daily-habit-theme` is the browser persistence key, and no theme value is sent to the lead API or stored with a lead.
 
-The logo is rendered from local assets only. `daily-habit-mark.png` is used for compact navigation and `daily-habit-logo.png` is used where the full brand lockup is appropriate. The UI must not depend on the external image URLs or invented content included in the Stitch export.
+The frontend content model is the temporary source of truth for the Stitch adaptation. It contains the sample's exact text, metric values, names, membership content, testimonial content, visit details, and remote media metadata. Media uses remote URLs from `lh3.googleusercontent.com`; Next image configuration must allow only that host. Replacing sample content later should require changing `content/site.ts`, not page layout or API code.
+
+The logo is rendered from local assets only. `daily-habit-mark.png` is used for compact navigation and `daily-habit-logo.png` is used where the full brand lockup is appropriate. Sample photography remains remote by explicit decision and must be monitored for availability and rights.
 
 ## Lead submission contract
 

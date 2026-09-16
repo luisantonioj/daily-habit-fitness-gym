@@ -7,8 +7,8 @@ Daily Habit Fitness Gym is a mobile-first lead-generation website for a local gy
 The first release includes:
 
 - A polished single-page landing experience.
-- Coach-approved information about services, facilities, membership options, location, and hours.
-- Coach-provided photos and videos once usage rights and final selections are confirmed.
+- Stitch sample information about services, facilities, membership options, location, hours, coaches, and testimonials as temporary content.
+- Remote Stitch sample photos and videos as temporary media references.
 - A registration form for interested visitors.
 - Server-side persistence to a dedicated Google Sheet.
 - An on-site success state and an automated confirmation email to the lead.
@@ -91,6 +91,7 @@ app/                    Next.js routes, layout, page, and API handlers
 components/landing/     Landing sections and responsive site header
 components/theme/       Persisted dark/light theme toggle
 components/lead-form/   Lead form and submission states
+content/                Typed Stitch sample content and remote media metadata
 lib/                    Validation, Google Sheets, email, and shared utilities
 public/brand/           Supplied Daily Habit logo lockup and mark
 public/media/           Approved coach-provided photos and videos
@@ -112,7 +113,7 @@ npm run build
 
 ## Content ownership
 
-Business claims, prices, hours, address, testimonials, coach biography, social links, and media must be confirmed by the coach before release. Until then, use `[OWNER TO CONFIRM]` rather than inventing content.
+The current adaptation intentionally uses the supplied Stitch sample claims, prices/placeholders, hours, address, coaches, testimonials, metrics, amenities, social links, and remote media. The coach must verify all of them before public release; do not add new unverified content beyond the sample.
 
 ## Theme and brand handoff
 

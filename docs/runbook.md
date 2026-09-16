@@ -32,7 +32,7 @@ For each photo or video, provide:
 | Video poster | Image to show before playback. |
 | Video transcript | Text alternative for meaningful spoken content. |
 
-Only approved assets should be copied into `public/media/`. Keep originals and private material outside the repository.
+The current Stitch adaptation intentionally keeps the sample image URLs remote. Verify that each `lh3.googleusercontent.com` asset still loads, has acceptable usage rights, and matches its alt text before production. Later coach media may be copied into `public/media/` after approval.
 
 ## Google Sheet provisioning
 
@@ -84,7 +84,7 @@ The default digest schedule is `0 0 * * *` UTC, corresponding to 08:00 Asia/Mani
 
 Review the deployed page at minimum at 320px, 390px, 768px, and 1440px widths in both themes. Confirm that the logo is legible, the header CTA and theme toggle remain reachable, mobile navigation opens and closes by keyboard, no section causes horizontal scrolling, and all focus indicators remain visible. Check the hero and media placeholders for stable aspect ratios, verify that yellow actions use dark text, and confirm the light theme remains within the Daily Habit black/white/yellow/slate palette.
 
-Before launch, replace placeholders only from the coach-approved handoff: exact gym name/tagline, address and directions, hours, contact/social links, rates and inclusions, services and facilities, coach/team claims, testimonials with permission, privacy wording, and approved photos/videos. Remove any invented business facts copied from visual references or generated mockups.
+Before launch, verify every copied sample claim and replace or approve it through the coach handoff: exact gym name/tagline, address and directions, hours, contact/social links, rates and inclusions, services and facilities, coach/team claims, metrics, testimonials with permission, amenities, privacy wording, and remote photos/videos. Do not treat the sample as independently verified merely because it is in the repository.
 
 ## Troubleshooting
 

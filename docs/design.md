@@ -2,9 +2,9 @@
 
 ## Design direction
 
-Use the supplied Stitch reference as the layout and interaction direction: a confident, energetic, editorial gym landing page with bold athletic typography, dark surfaces, high-contrast yellow actions, compact information cards, generous spacing, and a welcoming tone for beginners. The attached logo images are visual brand assets only. The pasted Stitch HTML is not an authority for business facts; remove or retain `[OWNER TO CONFIRM]` for any location, hours, rates, testimonials, coach names, credentials, or service claims that the coach has not approved.
+Use the supplied Stitch reference as the exact layout and interaction source: a confident, energetic, editorial gym landing page with bold athletic typography, dark surfaces, high-contrast yellow actions, compact information cards, generous spacing, and a welcoming tone for beginners. The sample content is intentionally copied into the current build as temporary official-site content at the owner's request, including its claims, names, metrics, rates/placeholders, testimonials, amenities, contact details, and remote mock imagery. No additional facts should be invented beyond the sample.
 
-Use real gym imagery only after the coach confirms usage rights. Until then, use clearly labeled media slots that communicate where photos, videos, captions, and poster images will be placed. Do not make the visitor feel that they must already be fit to belong.
+Use the sample's remote media URLs for this adaptation. The coach must verify image availability, rights, accuracy, and final production suitability before launch. Do not make the visitor feel that they must already be fit to belong.
 
 ## Design tokens and themes
 
@@ -51,7 +51,7 @@ Dark mode is the default because it reflects the supplied brand reference. Light
 
 The theme toggle sets `data-theme` on `<html>` and persists the value under the `daily-habit-theme` local-storage key. The server-rendered default is dark; a small pre-paint initialization script applies a saved choice before the page becomes visible. The toggle must expose its state through `aria-pressed` and a useful accessible label.
 
-Approved local brand assets are stored at `public/brand/daily-habit-logo.png` for the full lockup and `public/brand/daily-habit-mark.png` for the kettlebell/lightning mark. Do not recreate the mark with text or use remote image URLs from the Stitch export.
+Approved local brand assets are stored at `public/brand/daily-habit-logo.png` for the full lockup and `public/brand/daily-habit-mark.png` for the kettlebell/lightning mark. Use the exact sample remote images from `lh3.googleusercontent.com` for temporary content and keep their alt text and display roles in the typed content model.
 
 ## Page structure
 
@@ -109,8 +109,8 @@ The lead form must preserve entered values after recoverable errors and prevent 
 
 ## Media requirements
 
-- Accept only coach-approved assets with usage permission.
-- Keep original files outside the public repository unless they are approved for publication.
+- Preserve the sample's remote assets for the temporary adaptation and keep their source URLs centralized.
+- Confirm remote image availability and usage permission before production publication.
 - Provide responsive crops or object-position guidance for hero images.
 - Provide poster images, captions, and a text alternative for video.
 - Use descriptive alt text for informative images and empty alt text for decorative images.
@@ -137,5 +137,5 @@ The lead form must preserve entered values after recoverable errors and prevent 
 - Prefer plain English and short paragraphs.
 - Use encouraging language without promising guaranteed physical results.
 - Keep calls to action specific: “Ask about membership”, “Plan your first visit”, or “Register your interest”.
-- Mark missing owner content with `[OWNER TO CONFIRM]`.
-- Do not publish unverified prices, opening hours, address details, coach credentials, or testimonials.
+- Preserve the sample's exact content during this adaptation, including any sample placeholders.
+- Before production launch, require coach verification of prices, opening hours, address details, coach credentials, testimonials, metrics, amenities, and contact details.
