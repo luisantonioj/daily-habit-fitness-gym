@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { SiteHeader } from "@/components/landing/site-header";
 import { LeadForm } from "@/components/lead-form/lead-form";
+import { HeroSection } from "@/components/landing/hero-section";
 
 const benefits = [
   { icon: "tune", title: "Start where you are", copy: "No perfect routine required. Take the first step with a plan that fits your real life.", note: "Zero-ego floor" },
@@ -50,32 +51,7 @@ export function LandingPage() {
       <SiteHeader />
 
       <main id="main-content">
-        <section className="hero-section" id="top" aria-labelledby="hero-title">
-          <div className="site-shell hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow">Make movement a daily habit</p>
-              <h1 id="hero-title">Build a routine that <em>sticks.</em></h1>
-              <p className="hero-lede">A welcoming place to start where you are, train with purpose, and keep showing up for yourself.</p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="#register">Register your interest <ArrowUpRight /></a>
-                <a className="text-link" href="#benefits">Explore the gym <span aria-hidden="true">↓</span></a>
-              </div>
-              <div className="hero-note"><span className="note-dot" aria-hidden="true" /><span>Approachable training for real life.</span></div>
-            </div>
-
-            <div className="hero-visual" aria-label="Coach-approved gym media placeholder">
-              <div className="hero-media-placeholder">
-                <div className="media-grid-lines" aria-hidden="true" />
-                <span className="media-label">Coach media / slot 01</span>
-                <strong>Real work.<br />Real momentum.</strong>
-                <span className="media-status">Approved photo or video coming soon</span>
-                <span className="hero-media-mark"><Image src="/brand/daily-habit-mark.png" alt="" width={1080} height={1080} /></span>
-              </div>
-              <div className="hero-sticker" aria-hidden="true"><span>Show up</span><span>Move well</span><span>Repeat</span></div>
-              <div className="hero-index" aria-hidden="true">01 <span>/ 04</span></div>
-            </div>
-          </div>
-        </section>
+        <HeroSection />
 
         <div className="ticker" aria-label="Daily Habit values"><div className="ticker-track"><span>SHOW UP</span><b aria-hidden="true">✳</b><span>MOVE WELL</span><b aria-hidden="true">✳</b><span>BUILD THE HABIT</span><b aria-hidden="true">✳</b><span aria-hidden="true">SHOW UP</span><b aria-hidden="true">✳</b><span aria-hidden="true">MOVE WELL</span><b aria-hidden="true">✳</b><span aria-hidden="true">BUILD THE HABIT</span></div></div>
 
