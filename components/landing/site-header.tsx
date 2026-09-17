@@ -1,17 +1,59 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CoachAvatar } from "@/components/landing/coach-avatar";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
-import { sampleMedia, stitchContent } from "@/content/site";
+import { stitchContent } from "@/content/site";
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState<string>(stitchContent.header.nav[0][1]);
 
   function closeMenu() {
     setIsOpen(false);
   }
+
+  function handleNavClick(href: string) {
+    setActiveHref(href);
+    closeMenu();
+  }
+
+  useEffect(() => {
+    const sectionIds = stitchContent.header.nav.map(([, href]) => href.replace(/^#/, ""));
+
+    const handleScroll = () => {
+      const headerOffset = 140;
+      const scrollPosition = window.scrollY + headerOffset;
+
+      const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+      if (isBottom) {
+        setActiveHref(`#${sectionIds[sectionIds.length - 1]}`);
+        return;
+      }
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const element = document.getElementById(id);
+        if (element) {
+          const top = element.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveHref(`#${id}`);
+            return;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const { coachOnDuty } = stitchContent.header;
 
   return (
     <header className="site-header stitch-header">
@@ -22,13 +64,27 @@ export function SiteHeader() {
         </a>
 
         <nav id="primary-navigation" className={`stitch-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
-          {stitchContent.header.nav.map(([label, href], index) => <a className={index === 0 ? "is-active" : ""} href={href} key={href} onClick={closeMenu}>{label}</a>)}
+          {stitchContent.header.nav.map(([label, href]) => (
+            <a
+              className={activeHref === href ? "is-active" : ""}
+              href={href}
+              key={href}
+              onClick={() => handleNavClick(href)}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
 
         <div className="stitch-header-actions">
-          <div className="coach-status">
-            <CoachAvatar src={sampleMedia.coachSarah.src} alt={sampleMedia.coachSarah.alt} width={64} height={64} />
-            <span><b><i aria-hidden="true" />{stitchContent.header.status}</b></span>
+          <div className="coach-status" title={`Coach on duty: ${coachOnDuty.name}`}>
+            <CoachAvatar src={coachOnDuty.media.src} alt={coachOnDuty.media.alt} width={64} height={64} />
+            <span>
+              <b>
+                <i aria-hidden="true" />
+                {coachOnDuty.name} • On Duty
+              </b>
+            </span>
           </div>
           <ThemeToggle />
           <button className="stitch-menu-toggle" type="button" aria-expanded={isOpen} aria-controls="primary-navigation" onClick={() => setIsOpen((open) => !open)}>

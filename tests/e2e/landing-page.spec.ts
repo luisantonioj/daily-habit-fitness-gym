@@ -47,6 +47,7 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await page.getByRole("button", { name: /switch to light mode/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(page.locator(".stitch-hero-arrow").first()).toHaveCSS("color", "rgb(17, 20, 22)");
 
   const themeSnapshot = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);
@@ -94,6 +95,15 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
         accentText: read("--stitch-accent-text"),
         onAccent: read("--stitch-on-accent"),
       },
+      hero: {
+        background: getComputedStyle(document.querySelector(".stitch-hero")!).backgroundColor,
+        color: getComputedStyle(document.querySelector(".stitch-hero")!).color,
+        title: getComputedStyle(document.querySelector(".stitch-hero h1")!).color,
+        description: getComputedStyle(document.querySelector(".stitch-hero-copy > p")!).color,
+        highlight: getComputedStyle(document.querySelector(".stitch-hero h1 span")!).color,
+        arrow: getComputedStyle(document.querySelector(".stitch-hero-arrow")!).color,
+        imageFilter: getComputedStyle(document.querySelector(".stitch-hero-image")!).filter,
+      },
       sectionColors: [".stitch-hero", ".stitch-benefit-card", ".stitch-membership-card", ".stitch-registration", ".stitch-footer"].map((selector) => {
         const element = document.querySelector(selector);
         const styles = element ? getComputedStyle(element) : null;
@@ -111,8 +121,80 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
     accentText: "#5d6200",
     onAccent: "#353200",
   });
+  expect(themeSnapshot.hero).toMatchObject({
+    background: "rgb(243, 240, 233)",
+    color: "rgb(17, 20, 22)",
+    title: "rgb(17, 20, 22)",
+    description: "rgb(82, 96, 102)",
+    highlight: "rgb(93, 98, 0)",
+    arrow: "rgb(17, 20, 22)",
+  });
+  expect(themeSnapshot.hero.imageFilter).toContain("saturate");
   expect(themeSnapshot.sectionColors.every(({ background, color }) => Boolean(background) && Boolean(color))).toBe(true);
   expect(themeSnapshot.contrasts.every(({ ratio }) => ratio !== null && ratio >= 4.5)).toBe(true);
+});
+
+test("mobile hero reserves a visible carousel image band in both themes", async ({ page }) => {
+  for (const theme of ["dark", "light"] as const) {
+    for (const width of [320, 390, 430]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      await page.evaluate((selectedTheme) => {
+        window.localStorage.setItem("daily-habit-theme", selectedTheme);
+        document.documentElement.dataset.theme = selectedTheme;
+      }, theme);
+      await page.reload({ waitUntil: "domcontentloaded" });
+
+      const layout = await page.evaluate(() => {
+        const hero = document.querySelector(".stitch-hero");
+        const copy = document.querySelector(".stitch-hero-copy");
+        const carousel = document.querySelector(".stitch-hero-carousel");
+        const image = document.querySelector(".stitch-hero-image");
+        const previous = document.querySelector(".stitch-hero-arrow-prev");
+        const next = document.querySelector(".stitch-hero-arrow-next");
+        if (!hero || !copy || !carousel || !image || !previous || !next) return null;
+
+        const rect = (element: Element) => {
+          const { top, right, bottom, left, width, height } = element.getBoundingClientRect();
+          return { top, right, bottom, left, width, height };
+        };
+
+        const heroRect = rect(hero);
+        const copyRect = rect(copy);
+        const carouselRect = rect(carousel);
+        const imageRect = rect(image);
+        const previousRect = rect(previous);
+        const nextRect = rect(next);
+        const carouselCenterY = carouselRect.top + carouselRect.height / 2;
+
+        return {
+          hero: heroRect,
+          copy: copyRect,
+          carousel: carouselRect,
+          image: imageRect,
+          previous: previousRect,
+          next: nextRect,
+          copyEndsBeforeImage: copyRect.bottom <= carouselRect.top + 1,
+          arrowsCentered: Math.abs(previousRect.top + previousRect.height / 2 - carouselCenterY) <= 2
+            && Math.abs(nextRect.top + nextRect.height / 2 - carouselCenterY) <= 2,
+          arrowsInsideImage: previousRect.left >= imageRect.left
+            && previousRect.right <= imageRect.right
+            && nextRect.left >= imageRect.left
+            && nextRect.right <= imageRect.right,
+          hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        };
+      });
+
+      expect(layout, `hero geometry missing at ${theme} ${width}px`).not.toBeNull();
+      expect(layout!.carousel.height, `carousel height at ${theme} ${width}px`).toBeGreaterThanOrEqual(180);
+      expect(layout!.image.width, `image width at ${theme} ${width}px`).toBeGreaterThan(0);
+      expect(layout!.image.height, `image height at ${theme} ${width}px`).toBeGreaterThan(0);
+      expect(layout!.copyEndsBeforeImage, `hero copy overlaps image at ${theme} ${width}px`).toBe(true);
+      expect(layout!.arrowsCentered, `arrows are not centered over image at ${theme} ${width}px`).toBe(true);
+      expect(layout!.arrowsInsideImage, `arrows leave image bounds at ${theme} ${width}px`).toBe(true);
+      expect(layout!.hasOverflow, `horizontal overflow at ${theme} ${width}px`).toBe(false);
+    }
+  }
 });
 
 test("sample sections, FAQ, registration, and responsive widths remain usable", async ({ page }) => {

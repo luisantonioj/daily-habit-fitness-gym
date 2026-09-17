@@ -51,13 +51,56 @@ export function LandingPage() {
           <div className="site-shell">
             <SectionHeader id="experience-title" eyebrow={experience.eyebrow} title={experience.title} description={experience.description} centered />
             <div className="stitch-service-grid">
-              {experience.cards.map((card, index) => <article className={`stitch-service-card${index === 0 ? " is-featured" : ""}`} key={card.title}><div className="stitch-service-media"><MediaImage media={card.media} /><div className="stitch-service-shade" aria-hidden="true" /><span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span><span className="stitch-service-corner">{card.corner}</span>{index === 0 ? <span className="stitch-play"><Icon name="play_arrow" /></span> : null}</div><div className="stitch-service-body"><h3>{card.title}</h3><p>{card.copy}</p><ul>{card.chips.map((chip) => <li className={chip === card.chips[card.chips.length - 1] ? "is-accent" : ""} key={chip}>{chip}</li>)}</ul></div></article>)}
+              {experience.cards.map((card) => (
+                <article className="stitch-service-card" key={card.title}>
+                  <div className="stitch-service-media">
+                    <MediaImage media={card.media} />
+                    <div className="stitch-service-shade" aria-hidden="true" />
+                    <span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span>
+                    <span className="stitch-service-corner">{card.corner}</span>
+                  </div>
+                  <div className="stitch-service-body">
+                    <h3>{card.title}</h3>
+                    <p>{card.copy}</p>
+                    <ul>
+                      {card.chips.map((chip) => (
+                        <li className={chip === card.chips[card.chips.length - 1] ? "is-accent" : ""} key={chip}>
+                          {chip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="stitch-section stitch-coaching" id="coaching-media" aria-labelledby="coaching-title">
-          <div className="site-shell"><div className="stitch-section-header-row"><SectionHeader id="coaching-title" eyebrow={coaching.eyebrow} title={coaching.title} /><span className="stitch-section-index">02 / 04</span></div><div className="stitch-coach-grid">{coaching.coaches.map((coach) => <article className="stitch-coach-profile" key={coach.name}><div className="stitch-coach-photo"><MediaImage media={coach.media} /><span className="stitch-coach-label">{coach.label}</span></div><div className="stitch-coach-profile-body"><div><span className="stitch-coach-role">{coach.role}</span><h3>{coach.name}</h3></div><p>“{coach.quote}”</p><span className="stitch-coach-note"><Icon name="verified" />{coach.note}</span></div></article>)}</div></div>
+          <div className="site-shell">
+            <div className="stitch-section-header-row">
+              <SectionHeader id="coaching-title" eyebrow={coaching.eyebrow} title={coaching.title} />
+              <span className="stitch-section-index">02 / 04</span>
+            </div>
+            <div className="stitch-coach-grid">
+              {coaching.coaches.map((coach) => (
+                <article className="stitch-coach-profile" key={coach.name}>
+                  <div className="stitch-coach-photo">
+                    <MediaImage media={coach.media} />
+                    <span className="stitch-coach-label">{coach.label}</span>
+                  </div>
+                  <div className="stitch-coach-profile-body">
+                    <div>
+                      <span className="stitch-coach-role">{coach.role}</span>
+                      <h3>{coach.name}</h3>
+                    </div>
+                    <p>“{coach.quote}”</p>
+                    <span className="stitch-coach-note"><Icon name="verified" />{coach.note}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="stitch-section stitch-tour" aria-labelledby="tour-title">
@@ -74,7 +117,75 @@ export function LandingPage() {
 
         <section className="stitch-section stitch-faq" id="faq" aria-labelledby="faq-title"><div className="site-shell stitch-faq-grid"><SectionHeader id="faq-title" eyebrow={faq.eyebrow} title={faq.title} description={faq.description} /><div className="stitch-faq-list">{faq.items.map((item) => <details key={item.question}><summary>{item.question}<Icon name="expand_more" /></summary><p>{item.answer}</p></details>)}</div></div></section>
 
-        <section className="stitch-section stitch-location" id="location-contact" aria-labelledby="location-title"><div className="site-shell"><SectionHeader id="location-title" eyebrow={location.eyebrow} title={location.title} /><div className="stitch-location-grid"><div className="stitch-location-cards"><article><div><Icon name="pin_drop" /><h3>{location.addressTitle}</h3></div><strong>{location.address}</strong><p>{location.addressCopy}</p></article><article><div><Icon name="schedule" /><h3>Operating Hours</h3></div><strong>{location.hours}</strong><dl>{location.hoursRows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></article><article><div><Icon name="alternate_email" /><h3>Direct Contact</h3></div><strong>{location.contact}</strong><p>{location.contactCopy}</p></article></div><div className="stitch-map"><div className="stitch-map-art" aria-hidden="true" /><div className="stitch-map-callout"><div><i aria-hidden="true" /><div><b>{location.mapLabel}</b><span>{location.mapSubLabel}</span></div></div><a href="#register">{location.cta}</a></div></div></div></div></section>
+        <section className="stitch-section stitch-location" id="location-contact" aria-labelledby="location-title">
+          <div className="site-shell">
+            <SectionHeader id="location-title" eyebrow={location.eyebrow} title={location.title} />
+            <div className="stitch-location-grid">
+              <div className="stitch-location-cards">
+                <article>
+                  <div><Icon name="pin_drop" /><h3>{location.addressTitle}</h3></div>
+                  <strong>{location.address}</strong>
+                  <p>{location.addressCopy}</p>
+                </article>
+                <article>
+                  <div><Icon name="schedule" /><h3>Operating Hours</h3></div>
+                  <strong>{location.hours}</strong>
+                  <dl>
+                    {location.hoursRows.map(([label, value]) => (
+                      <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </article>
+                <article>
+                  <div><Icon name="contact_phone" /><h3>Direct Contact</h3></div>
+                  <div className="stitch-contact-links">
+                    <a href={`tel:${location.phone.replace(/\s+/g, "")}`} className="stitch-contact-link">
+                      <Icon name="call" />
+                      <span>{location.phone}</span>
+                    </a>
+                    <a href={`mailto:${location.email}`} className="stitch-contact-link">
+                      <Icon name="mail" />
+                      <span>{location.email}</span>
+                    </a>
+                    <a href={location.facebook} target="_blank" rel="noopener noreferrer" className="stitch-contact-link">
+                      <Icon name="link" />
+                      <span>{location.facebookHandle}</span>
+                    </a>
+                  </div>
+                  <p>{location.contactCopy}</p>
+                </article>
+              </div>
+              <div className="stitch-map">
+                <iframe
+                  title="Daily Habit Fitness Gym Google Maps Location"
+                  src={location.mapEmbedUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="stitch-map-iframe"
+                />
+                <div className="stitch-map-callout">
+                  <div>
+                    <i aria-hidden="true" />
+                    <div>
+                      <b>{location.mapLabel}</b>
+                      <span>{location.mapSubLabel}</span>
+                    </div>
+                  </div>
+                  <a href={location.mapDirectionsUrl} target="_blank" rel="noopener noreferrer">
+                    {location.cta}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="stitch-section stitch-registration" id="register" aria-labelledby="register-title"><div className="site-shell stitch-registration-shell"><SectionHeader id="register-title" eyebrow={form.eyebrow} title={form.title} description={form.description} centered /><LeadForm enabled={leadsEnabled} /></div></section>
       </main>
