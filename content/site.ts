@@ -58,6 +58,52 @@ export const sampleMedia = {
   },
 } satisfies Record<string, MediaAsset>;
 
+export const gymExperienceMedia = {
+  exp1: {
+    src: "/gym experience/gym exp 1.jpg",
+    alt: "Daily Habit coach spotting and guiding a gym member on dumbbell incline press",
+  },
+  exp2: {
+    src: "/gym experience/gym exp 2.jpg",
+    alt: "Spacious Daily Habit gym floor with dumbbells, adjustable benches, and selectorized equipment",
+  },
+  exp3: {
+    src: "/gym experience/gym exp 3.jpg",
+    alt: "Daily Habit coach guiding a member on the incline barbell bench press",
+  },
+  exp4: {
+    src: "/gym experience/gym exp 4.jpg",
+    alt: "Daily Habit community members training together in the open ventilated gym facility",
+  },
+} satisfies Record<string, MediaAsset>;
+
+export const coachesMedia = {
+  coachSpear: {
+    src: "/coaches/coach spear.jpg",
+    alt: "Coach Spear, Head Coach at Daily Habit Fitness Gym",
+  },
+  coachAxl: {
+    src: "/coaches/coach axl.jpg",
+    alt: "Coach Axl, Floor Coach at Daily Habit Fitness Gym",
+  },
+  coachDa: {
+    src: "/coaches/coach da.jpg",
+    alt: "Coach Da, Strength and Conditioning Coach at Daily Habit Fitness Gym",
+  },
+  coachFrancis: {
+    src: "/coaches/coach francis.jpg",
+    alt: "Coach Francis, Beginner Transitions Coach at Daily Habit Fitness Gym",
+  },
+  coachJomuel: {
+    src: "/coaches/coach jomuel.jpg",
+    alt: "Coach Jomuel, Strength and Mobility Coach at Daily Habit Fitness Gym",
+  },
+  coachesTeam: {
+    src: "/coaches/coaches.jpg",
+    alt: "The Daily Habit Fitness Gym Coaching Team",
+  },
+} satisfies Record<string, MediaAsset>;
+
 export const stitchContent = {
   header: {
     nav: [
@@ -70,6 +116,12 @@ export const stitchContent = {
     ],
     status: "Coach on Duty",
     cta: "Get Started",
+    coachOnDuty: {
+      name: "Coach Spear",
+      role: "Head Coach",
+      status: "Coach on Duty",
+      media: coachesMedia.coachSpear,
+    },
   },
   hero: {
     badge: "Zero-Intimidation Athletic Community",
@@ -83,8 +135,8 @@ export const stitchContent = {
       { icon: "groups_3", title: "500+ Strong", detail: "Daily achievers" },
     ],
     liveLabel: "LIVE HABIT FLOOR",
-    coachName: "Coach Sarah",
-    coachRole: "Beginner Transitions Lead",
+    coachName: "Coach Spear",
+    coachRole: "Head Coach & Strength Mentor",
     coachStatus: "Floor Active",
     streakLabel: "COMMUNITY STREAK GOAL",
     streakValue: "88% Milestone",
@@ -104,20 +156,86 @@ export const stitchContent = {
   experience: {
     eyebrow: "Gym Experience",
     title: "Guided Systems Built for Real Life",
-    description: "No wandering around aimlessly wondering what machine to touch next. Follow intuitive circuits, join supportive small groups, or book regular touchpoints.",
+    description: "No wandering around aimlessly wondering what machine to touch next. Train on well-maintained equipment, follow structured routines, or get spotted by attentive floor coaches.",
     cards: [
-      { media: sampleMedia.formWalkthrough, label: "Live from floor • 0:30 clip", corner: "Form Foundations", title: "Supportive Form Walkthroughs", copy: "Zero intimidation. A coach by your side ensuring comfort on every single rep.", chips: ["Joint Safety", "At Your Pace", "Beginner Favorite"] },
-      { media: sampleMedia.group, label: "Community Energy", corner: "40-Min Group", title: "Small-Group Daily Circuits", copy: "Capped at 8 people. High camaraderie, no competition, and laughter guaranteed.", chips: ["Max 8 Members", "Full Mobility", "100% Encouragement"] },
-      { media: sampleMedia.floor, label: "Color-Coded Ease", corner: "Laminated Cards", title: "Open Floor with Easy Guides", copy: "Pick up a simple routine card, follow friendly color steps, and build daily consistency.", chips: ["Clear Visual Cues", "Stretch Bays", "No Confusion"] },
-      { media: sampleMedia.review, label: "Bi-Weekly", corner: "Habit Tuning", title: "Coffee & Milestone Chats", copy: "Relaxed 1-on-1 check-ins to celebrate steady progress and adapt routines to real life.", chips: ["Habit Tuning", "Schedule Fit", "High Five Wins"] },
+      {
+        media: gymExperienceMedia.exp1,
+        label: "Active Floor Spotting",
+        corner: "Form Foundations",
+        title: "Hands-on Spotting & Guidance",
+        copy: "Zero intimidation. A qualified coach is always right by your side to adjust posture, spot heavy sets, and ensure joint-safe movements.",
+        chips: ["Active Spotting", "Posture Checks", "Beginner Friendly"],
+      },
+      {
+        media: gymExperienceMedia.exp2,
+        label: "Precision Equipment",
+        corner: "Free Weights",
+        title: "Dedicated Strength & Dumbbell Bays",
+        copy: "Clean, organized dumbbell racks and ergonomic benches built for structured progression without having to wait in line.",
+        chips: ["Curated Dumbbells", "Adjustable Benches", "Zero Clutter"],
+      },
+      {
+        media: gymExperienceMedia.exp3,
+        label: "Coach-Guided Lifts",
+        corner: "Strength Progress",
+        title: "Safe Barbell & Compound Lifts",
+        copy: "Build real upper-body strength and confidence under a barbell with step-by-step coaching tailored to your starting mobility.",
+        chips: ["Barbell Confidence", "Movement Tempo", "Safe Progression"],
+      },
+      {
+        media: gymExperienceMedia.exp4,
+        label: "Daily Habit Floor",
+        corner: "Community Energy",
+        title: "Open, Ventilated Community Floor",
+        copy: "An airy, welcoming atmosphere where members support each other's daily milestones—encouraging, friendly, and 100% ego-free.",
+        chips: ["Fresh Air Flow", "Mutual Support", "All Fitness Levels"],
+      },
     ],
   },
   coaching: {
     eyebrow: "Meet the Guidance Team",
     title: "Coaching Focused on Your Pace",
     coaches: [
-      { media: sampleMedia.coachSarahPortrait, label: "Floor Mentor", role: "Transitions Lead", name: "Coach Sarah", quote: "Starting with ten good minutes every day defeats two grueling hours once a month.", note: "Zero ego • 100% encouragement" },
-      { media: sampleMedia.coachMarcus, label: "Daily Coach", role: "Movement Specialist", name: "Coach Marcus", quote: "Fitness shouldn't feel like a chore. We find the movements you genuinely look forward to.", note: "Patient form checks • Consistency guide" },
+      {
+        media: coachesMedia.coachSpear,
+        label: "Head Coach",
+        role: "Head Coach & Strength Mentor",
+        name: "Coach Spear",
+        quote: "The body achieves what the mind believes. Pace yourself and trust the process.",
+        note: "Zero ego • Master coaching",
+      },
+      {
+        media: coachesMedia.coachAxl,
+        label: "Floor Mentor",
+        role: "Floor Coach & Movement Specialist",
+        name: "Coach Axl",
+        quote: "Discipline is choosing between what you want now and what you want most.",
+        note: "Form first • Patient guidance",
+      },
+      {
+        media: coachesMedia.coachDa,
+        label: "Floor Mentor",
+        role: "Strength & Conditioning Coach",
+        name: "Coach Da",
+        quote: "Small daily improvements over time lead to stunning results.",
+        note: "Consistency guide • Safe progression",
+      },
+      {
+        media: coachesMedia.coachFrancis,
+        label: "Daily Coach",
+        role: "Beginner Transitions Coach",
+        name: "Coach Francis",
+        quote: "Action creates motivation, not the other way around. Just show up.",
+        note: "100% encouragement • Habit builder",
+      },
+      {
+        media: coachesMedia.coachJomuel,
+        label: "Daily Coach",
+        role: "Strength & Mobility Coach",
+        name: "Coach Jomuel",
+        quote: "Consistency beats intensity every single time. Build the habit first.",
+        note: "Active spotting • Everyday pacing",
+      },
     ],
   },
   tour: {
@@ -165,22 +283,32 @@ export const stitchContent = {
     eyebrow: "Visit Us",
     title: "Location & Visiting Hours",
     addressTitle: "Main Studio Location",
-    address: "[Main Studio Location - Inquire for Nearest Hub]",
-    addressCopy: "Convenient street parking available + direct transit line connectivity.",
-    hours: "[Operating Hours - Morning to Evening Shifts Available]",
-    hoursRows: [["Member Keycard Access:", "24 Hours / 7 Days"], ["Active Floor Coach Duty:", "06:00 – 22:00 Daily"], ["Front Desk Concierge:", "08:00 – 20:00 Daily"]],
-    contact: "[Contact Desk: hello@dailyhabitgym.com | (555) 019-2834]",
-    contactCopy: "Inquiries answered in under 2 hours during staffed operating hours.",
-    mapLabel: "Metro Central Athletic Complex",
-    mapSubLabel: "Free Member Parking on Level B1",
+    address: "Purok 1, National Highway, Brgy. Ibabao, Cuenca, Philippines, 4222",
+    addressCopy: "Located along National Highway in Brgy. Ibabao, Cuenca. Convenient roadside parking and accessible transit.",
+    hours: "Daily 7:00 AM – 11:00 PM",
+    hoursRows: [
+      ["Monday – Sunday:", "7:00 AM – 11:00 PM"],
+      ["Active Floor Coach Duty:", "Available Daily"],
+      ["Front Desk Concierge:", "Daily 7:00 AM – 11:00 PM"],
+    ],
+    contact: "0945 829 0028 • support@dailyhabitph.com",
+    contactCopy: "Reach out by phone, email, or message us directly on our official Facebook page.",
+    phone: "0945 829 0028",
+    email: "support@dailyhabitph.com",
+    facebook: "https://www.facebook.com/dailyhabitfitnessgym",
+    facebookHandle: "@dailyhabitfitnessgym",
+    mapLabel: "Daily Habit Fitness Gym",
+    mapSubLabel: "Purok 1, Brgy. Ibabao, Cuenca, Batangas, 4222",
     cta: "Get Directions",
+    mapEmbedUrl: "https://maps.google.com/maps?q=Daily+Habit+Fitness+Gym,+Purok+1,+National+Highway,+Brgy.+Ibabao,+Cuenca,+Batangas,+Philippines&t=&z=16&ie=UTF8&iwloc=&output=embed",
+    mapDirectionsUrl: "https://www.google.com/maps/search/?api=1&query=Daily+Habit+Fitness+Gym,+Purok+1,+National+Highway,+Brgy.+Ibabao,+Cuenca,+Philippines,+4222",
   },
   form: {
     eyebrow: "Start Today",
     title: "Claim Your Free Introductory Session",
     description: "Fill in your details below and our team will connect to schedule your coach-guided walkthrough. Zero sales pressure—guaranteed.",
     successTitle: "Introductory Session Request Received!",
-    successCopy: "Thank you! Your introductory session request has been received. Coach Sarah will reach out within 24 hours to confirm your custom start time.",
+    successCopy: "Thank you! Your introductory session request has been received. Our coaching team will reach out within 24 hours to confirm your custom start time.",
     submit: "Book My Intro Session",
     submitLoading: "Securing Your Session...",
     finePrint: "100% Free • No credit card required • Friendly 45-minute gym tour & consultation",
@@ -190,8 +318,8 @@ export const stitchContent = {
     verification: "Certified Athletic Conditioning & Habit Science",
     explore: [["Benefits", "#benefits"], ["Experience & Services", "#experience-services"], ["Coaching & Media", "#coaching-media"], ["Membership Tiers", "#memberships"]],
     support: [["FAQ & Help Center", "#faq"], ["Locker & Kiosk Access", "#location-contact"], ["Contact Front Desk", "#location-contact"], ["Session Check-in", "#booking-portal"]],
-    facility: "Open 24/7 with active coach staff coverage 06:00 - 22:00 Daily.",
-    location: "Metro Central Athletic Complex",
+    facility: "Open Daily 7:00 AM – 11:00 PM with active coach guidance.",
+    location: "Brgy. Ibabao, Cuenca, Batangas, Philippines",
     copyright: "© 2025 Daily Habit Fitness Gym. All rights reserved.",
   },
 } as const;
