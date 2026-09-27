@@ -1967,7 +1967,7 @@ button, input, select, textarea { font: inherit; }
 .community-gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(2, 1fr);
   gap: 1rem;
 }
 .community-gallery-thumbnail {
@@ -1982,6 +1982,7 @@ button, input, select, textarea { font: inherit; }
   cursor: pointer;
 }
 .community-gallery-thumbnail img { object-fit: cover; }
+.community-gallery-placeholder { aspect-ratio: 4 / 3; }
 .community-photo-viewer {
   position: fixed;
   inset: 0;

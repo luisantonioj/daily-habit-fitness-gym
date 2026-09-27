@@ -33,11 +33,13 @@ export function CommunityGallery() {
   return (
     <div ref={gallery} className="community-gallery" role="region" aria-label="Gym photo gallery">
       <div className="community-gallery-grid">
-        {communityPhotos.slice(paging.start, paging.start + paging.size).map((photo, index) => (
-          <button type="button" className="community-gallery-thumbnail" key={photo.src} onClick={(event) => { trigger.current = event.currentTarget; setSelected(paging.start + index); }} aria-label={`View photo ${paging.start + index + 1}: ${photo.alt}`} aria-haspopup="dialog">
+        {Array.from({ length: paging.size }, (_, index) => {
+          const photo = communityPhotos[paging.start + index];
+          if (!photo) return <span className="community-gallery-placeholder" key={`placeholder-${index}`} aria-hidden="true" />;
+          return <button type="button" className="community-gallery-thumbnail" key={photo.src} onClick={(event) => { trigger.current = event.currentTarget; setSelected(paging.start + index); }} aria-label={`View photo ${paging.start + index + 1}: ${photo.alt}`} aria-haspopup="dialog">
             <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 900px) 45vw, 25vw" />
-          </button>
-        ))}
+          </button>;
+        })}
       </div>
       <div className="community-gallery-controls">
         <button type="button" onClick={() => movePage(-1)} aria-label="Previous gallery page">←</button>
