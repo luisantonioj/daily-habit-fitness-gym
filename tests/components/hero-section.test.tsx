@@ -1,88 +1,101 @@
 import React from "react";
 import { act, cleanup, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HeroSection } from "@/components/landing/hero-section";
 
+const MOBILE_VIDEO = "/videos/daily-habit-video-mobile.mp4";
+const DESKTOP_VIDEO = "/videos/daily-habit-video-web.mp4";
+
+function mockViewport(width: number) {
+  const listeners = new Set<EventListener>();
+  const query = {
+    matches: width >= 640,
+    media: "(min-width: 640px)",
+    onchange: null,
+    addEventListener: vi.fn((_type: string, listener: EventListener) => listeners.add(listener)),
+    removeEventListener: vi.fn((_type: string, listener: EventListener) => listeners.delete(listener)),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    dispatchEvent: vi.fn(() => true),
+  } as unknown as MediaQueryList;
+
+  Object.defineProperty(window, "matchMedia", {
+    configurable: true,
+    value: vi.fn(() => query),
+  });
+
+  return (nextWidth: number) => {
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: nextWidth });
+    Object.defineProperty(query, "matches", { configurable: true, value: nextWidth >= 640 });
+    act(() => listeners.forEach((listener) => listener(new Event("change"))));
+  };
+}
+
 describe("HeroSection", () => {
   beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.spyOn(HTMLMediaElement.prototype, "load").mockImplementation(() => {});
+    vi.spyOn(HTMLMediaElement.prototype, "play").mockResolvedValue(undefined);
   });
 
   afterEach(() => {
     cleanup();
-    vi.runOnlyPendingTimers();
-    vi.useRealTimers();
+    vi.restoreAllMocks();
   });
 
-  it("renders the minimalist headline, subtitle, and single CTA button", () => {
+  it.each([
+    [390, MOBILE_VIDEO],
+    [639, MOBILE_VIDEO],
+    [640, DESKTOP_VIDEO],
+    [1024, DESKTOP_VIDEO],
+  ])("selects only the matching video source at %i pixels", (width, expectedSource) => {
+    mockViewport(width);
     render(<HeroSection />);
 
-    // Title
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Build the Habit That Changes Everything."
-    );
-
-    // Subtitle
-    expect(
-      screen.getByText(
-        "An approachable fitness community for beginners and everyday progress. No judgment—just consistent daily habits."
-      )
-    ).toBeInTheDocument();
-
-    // Single CTA button linking to #experience-services
-    const ctaButton = screen.getByRole("link", { name: /Explore Gym Services/i });
-    expect(ctaButton).toBeInTheDocument();
-    expect(ctaButton).toHaveAttribute("href", "#experience-services");
-
-    // Removed elements should NOT be present
-    expect(
-      screen.queryByRole("link", { name: /Claim Your Free Introductory Session/i })
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText("500+ Strong")).not.toBeInTheDocument();
-    expect(screen.queryByText("Zero Pressure")).not.toBeInTheDocument();
-    expect(screen.queryByText("Floor Coaches")).not.toBeInTheDocument();
-    expect(screen.queryByText("Coach Sarah")).not.toBeInTheDocument();
+    const video = document.querySelector(".stitch-hero-video") as HTMLVideoElement;
+    expect(video).toHaveAttribute("src", expectedSource);
+    expect(video.querySelectorAll("source")).toHaveLength(0);
+    expect(screen.getByRole("heading", { level: 1, name: "Daily Habit Fitness Gym" })).toHaveClass("sr-only");
   });
 
-  it("renders navigation arrows and cycles images on click", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+  it("switches and restarts the video when the viewport crosses the breakpoint", () => {
+    const changeViewport = mockViewport(639);
     render(<HeroSection />);
 
-    const prevButton = screen.getByRole("button", { name: /Previous community photo/i });
-    const nextButton = screen.getByRole("button", { name: /Next community photo/i });
+    const video = document.querySelector(".stitch-hero-video") as HTMLVideoElement;
+    expect(video).toHaveAttribute("src", MOBILE_VIDEO);
 
-    expect(prevButton).toBeInTheDocument();
-    expect(nextButton).toBeInTheDocument();
+    changeViewport(640);
+    expect(video).toHaveAttribute("src", DESKTOP_VIDEO);
+    expect(video.load).toHaveBeenCalledTimes(2);
+    expect(video.play).toHaveBeenCalledTimes(2);
 
-    // Initial image in background
-    const initialImg = document.querySelector(".stitch-hero-image") as HTMLImageElement;
-    const initialSrc = initialImg.getAttribute("src");
-    expect(initialSrc).toBeTruthy();
-
-    // Click next
-    await user.click(nextButton);
-    const secondImg = document.querySelector(".stitch-hero-image") as HTMLImageElement;
-    expect(secondImg.getAttribute("src")).not.toBe(initialSrc);
-
-    // Click previous to go back
-    await user.click(prevButton);
-    const backImg = document.querySelector(".stitch-hero-image") as HTMLImageElement;
-    expect(backImg.getAttribute("src")).toBe(initialSrc);
+    changeViewport(390);
+    expect(video).toHaveAttribute("src", MOBILE_VIDEO);
+    expect(video.load).toHaveBeenCalledTimes(3);
+    expect(video.play).toHaveBeenCalledTimes(3);
   });
 
-  it("advances community photos automatically every 5 seconds", () => {
+  it("plays muted inline on a loop without exposing video controls", () => {
+    mockViewport(1280);
     render(<HeroSection />);
 
-    const initialImg = document.querySelector(".stitch-hero-image") as HTMLImageElement;
-    const initialSrc = initialImg.getAttribute("src");
+    const video = document.querySelector(".stitch-hero-video") as HTMLVideoElement;
+    expect(video).toHaveAttribute("autoplay");
+    expect(video).toHaveAttribute("loop");
+    expect(video.muted).toBe(true);
+    expect(video).toHaveAttribute("playsinline");
+    expect(video).toHaveAttribute("preload", "auto");
+    expect(video).not.toHaveAttribute("controls");
+    expect(video.querySelector("button")).not.toBeInTheDocument();
+    expect(video.play).toHaveBeenCalledOnce();
+  });
 
-    // Fast-forward 5 seconds
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
+  it("handles a browser rejecting autoplay without exposing controls", async () => {
+    vi.spyOn(HTMLMediaElement.prototype, "play").mockRejectedValueOnce(new Error("autoplay denied"));
+    mockViewport(390);
+    render(<HeroSection />);
 
-    const nextImg = document.querySelector(".stitch-hero-image") as HTMLImageElement;
-    expect(nextImg.getAttribute("src")).not.toBe(initialSrc);
+    await act(async () => Promise.resolve());
+    expect(document.querySelector(".stitch-hero-video")).not.toHaveAttribute("controls");
   });
 });

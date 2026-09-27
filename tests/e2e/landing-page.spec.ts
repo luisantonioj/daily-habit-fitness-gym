@@ -1,27 +1,73 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("landing page exposes the key visitor flow", async ({ page }) => {
+const MOBILE_VIDEO = "/videos/daily-habit-video-mobile.mp4";
+const DESKTOP_VIDEO = "/videos/daily-habit-video-web.mp4";
+
+test("landing page opens on the full-screen video and exposes the visitor flow", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
 
   await expect(page).toHaveTitle(/Daily Habit Fitness Gym/);
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByRole("img", { name: "Daily Habit Fitness Gym", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Build the Habit That Changes Everything/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Claim Your Free Introductory Session/i }).first()).toHaveAttribute("href", "#register");
+  await expect(page.getByRole("heading", { name: "Daily Habit Fitness Gym" })).toHaveClass("sr-only");
+  await expect(page.locator(".stitch-hero-video")).toHaveAttribute("src", DESKTOP_VIDEO);
+  await expect(page.locator(".stitch-hero-video")).toHaveAttribute("autoplay", "");
+  await expect(page.locator(".stitch-hero-video")).toHaveAttribute("loop", "");
+  await expect(page.locator(".stitch-hero-video")).toHaveAttribute("playsinline", "");
+  await expect(page.locator(".stitch-hero-video")).toHaveJSProperty("muted", true);
+  await expect(page.locator(".stitch-hero-video")).not.toHaveAttribute("controls");
+  await expect(page.locator(".stitch-header")).not.toHaveClass(/is-visible/);
   await expect(page.getByRole("heading", { name: /Claim Your Free Introductory Session/i })).toBeVisible();
   await expect(page.getByLabel("Email Address")).toBeVisible();
-  await expect(page.getByText("500+ Strong")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Starter Habit" })).toBeVisible();
   await expect(page.locator('img[src*="lh3.googleusercontent.com"]').first()).toBeVisible();
 });
 
-test("theme toggle persists and mobile navigation opens", async ({ page }) => {
+test("navbar stays hidden through 24 pixels, reveals at 25, and hides at the top", async ({ page }) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const header = page.locator(".stitch-header");
+
+  await expect(header).toHaveAttribute("aria-hidden", "true");
+  await expect(header).toHaveAttribute("inert", "");
+  await page.evaluate(() => window.scrollTo(0, 24));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(24);
+  await expect(header).not.toHaveClass(/is-visible/);
+
+  await page.evaluate(() => window.scrollTo(0, 25));
+  await expect(header).toHaveClass(/is-visible/);
+  await expect(header).toHaveAttribute("aria-hidden", "false");
+  await expect(header).not.toHaveAttribute("inert");
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(header).not.toHaveClass(/is-visible/);
+  await expect(header).toHaveAttribute("inert", "");
+});
+
+test("restored deep-link scroll reveals the navbar and scrolling home closes its mobile menu", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#memberships", { waitUntil: "domcontentloaded" });
+  const header = page.locator(".stitch-header");
+  await expect(header).toHaveClass(/is-visible/);
+
+  const menuToggle = page.locator(".stitch-menu-toggle");
+  await menuToggle.click();
+  await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator(".stitch-nav")).toHaveClass(/is-open/);
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(header).not.toHaveClass(/is-visible/);
+  await expect(page.locator(".stitch-nav")).not.toHaveClass(/is-open/);
+  await expect(page.locator(".stitch-menu-toggle")).toHaveAttribute("aria-expanded", "false");
+});
+
+test("theme toggle persists and mobile navigation remains usable after reveal", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
+  await expect(page.locator(".stitch-header")).not.toHaveClass(/is-visible/);
+  await page.evaluate(() => window.scrollTo(0, 25));
+  await expect(page.locator(".stitch-header")).toHaveClass(/is-visible/);
 
-  const themeToggle = page.getByRole("button", { name: /switch to light mode/i });
-  await themeToggle.click();
+  await page.getByRole("button", { name: /switch to light mode/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await expect(page.getByRole("button", { name: /switch to dark mode/i })).toHaveAttribute("aria-pressed", "true");
 
@@ -40,21 +86,19 @@ test("theme toggle persists and mobile navigation opens", async ({ page }) => {
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(page.locator(".stitch-header")).toHaveClass(/is-visible/);
   await expect(page.locator("body")).toHaveCSS("overflow-x", "visible");
 });
 
-test("light theme uses readable brand tokens and contrast", async ({ page }) => {
+test("light theme keeps the video hero black and lower-page colors readable", async ({ page }) => {
+  await page.addInitScript(() => window.localStorage.setItem("daily-habit-theme", "light"));
   await page.goto("/", { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /switch to light mode/i }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(page.locator(".stitch-hero-arrow").first()).toHaveCSS("color", "rgb(17, 20, 22)");
 
   const themeSnapshot = await page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);
     const read = (name: string) => root.getPropertyValue(name).trim().toLowerCase();
     const contrastSamples = [
-      [".stitch-hero h1", ".stitch-hero"],
-      [".stitch-hero-copy > p", ".stitch-hero"],
       [".stitch-eyebrow", ".stitch-benefits"],
       [".stitch-card-copy p", ".stitch-benefit-card"],
       [".stitch-membership-card > p", ".stitch-membership-card"],
@@ -66,14 +110,12 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
       const channels = value.match(/[\d.]+/g)?.map(Number) ?? [];
       return channels.length >= 3 ? channels.slice(0, 3).map((channel) => channel / 255) : null;
     };
-
     const luminance = (value: string) => {
       const rgb = parseRgb(value);
       if (!rgb) return null;
       const linear = rgb.map((channel) => (channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
       return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
     };
-
     const contrasts = contrastSamples.map(([textSelector, backgroundSelector]) => {
       const textElement = document.querySelector(textSelector);
       const backgroundElement = document.querySelector(backgroundSelector);
@@ -97,14 +139,9 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
       },
       hero: {
         background: getComputedStyle(document.querySelector(".stitch-hero")!).backgroundColor,
-        color: getComputedStyle(document.querySelector(".stitch-hero")!).color,
-        title: getComputedStyle(document.querySelector(".stitch-hero h1")!).color,
-        description: getComputedStyle(document.querySelector(".stitch-hero-copy > p")!).color,
-        highlight: getComputedStyle(document.querySelector(".stitch-hero h1 span")!).color,
-        arrow: getComputedStyle(document.querySelector(".stitch-hero-arrow")!).color,
-        imageFilter: getComputedStyle(document.querySelector(".stitch-hero-image")!).filter,
+        objectFit: getComputedStyle(document.querySelector(".stitch-hero-video")!).objectFit,
       },
-      sectionColors: [".stitch-hero", ".stitch-benefit-card", ".stitch-membership-card", ".stitch-registration", ".stitch-footer"].map((selector) => {
+      sectionColors: [".stitch-benefit-card", ".stitch-membership-card", ".stitch-registration", ".stitch-footer"].map((selector) => {
         const element = document.querySelector(selector);
         const styles = element ? getComputedStyle(element) : null;
         return { selector, background: styles?.backgroundColor, color: styles?.color };
@@ -115,89 +152,99 @@ test("light theme uses readable brand tokens and contrast", async ({ page }) => 
 
   expect(themeSnapshot.tokens).toMatchObject({
     page: "#f3f0e9",
-    surface: "#ffffff",
+    surface: "#fff",
     secondary: "#526066",
     accent: "#f3e700",
     accentText: "#5d6200",
     onAccent: "#353200",
   });
-  expect(themeSnapshot.hero).toMatchObject({
-    background: "rgb(243, 240, 233)",
-    color: "rgb(17, 20, 22)",
-    title: "rgb(17, 20, 22)",
-    description: "rgb(82, 96, 102)",
-    highlight: "rgb(93, 98, 0)",
-    arrow: "rgb(17, 20, 22)",
-  });
-  expect(themeSnapshot.hero.imageFilter).toContain("saturate");
+  expect(themeSnapshot.hero).toEqual({ background: "rgb(0, 0, 0)", objectFit: "cover" });
   expect(themeSnapshot.sectionColors.every(({ background, color }) => Boolean(background) && Boolean(color))).toBe(true);
   expect(themeSnapshot.contrasts.every(({ ratio }) => ratio !== null && ratio >= 4.5)).toBe(true);
 });
 
-test("mobile hero reserves a visible carousel image band in both themes", async ({ page }) => {
-  for (const theme of ["dark", "light"] as const) {
-    for (const width of [320, 390, 430]) {
-      await page.setViewportSize({ width, height: 844 });
-      await page.goto("/", { waitUntil: "domcontentloaded" });
-      await page.evaluate((selectedTheme) => {
-        window.localStorage.setItem("daily-habit-theme", selectedTheme);
-        document.documentElement.dataset.theme = selectedTheme;
-      }, theme);
-      await page.reload({ waitUntil: "domcontentloaded" });
+test("video fills mobile, tablet, and desktop viewports with only the selected asset requested", async ({ page }) => {
+  const videoRequests: string[] = [];
+  page.on("request", (request) => {
+    const path = new URL(request.url()).pathname;
+    if (path.endsWith(".mp4")) videoRequests.push(path);
+  });
 
-      const layout = await page.evaluate(() => {
-        const hero = document.querySelector(".stitch-hero");
-        const copy = document.querySelector(".stitch-hero-copy");
-        const carousel = document.querySelector(".stitch-hero-carousel");
-        const image = document.querySelector(".stitch-hero-image");
-        const previous = document.querySelector(".stitch-hero-arrow-prev");
-        const next = document.querySelector(".stitch-hero-arrow-next");
-        if (!hero || !copy || !carousel || !image || !previous || !next) return null;
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
 
-        const rect = (element: Element) => {
-          const { top, right, bottom, left, width, height } = element.getBoundingClientRect();
-          return { top, right, bottom, left, width, height };
-        };
+  for (const [width, height] of [
+    [320, 740], [390, 844], [430, 932], [639, 844],
+    [640, 900], [768, 1024], [834, 1112], [1024, 768],
+    [1280, 800], [1536, 960], [1920, 1080], [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height });
+    const expectedVideo = width < 640 ? MOBILE_VIDEO : DESKTOP_VIDEO;
+    await expect(page.locator(".stitch-hero-video")).toHaveAttribute("src", expectedVideo);
 
-        const heroRect = rect(hero);
-        const copyRect = rect(copy);
-        const carouselRect = rect(carousel);
-        const imageRect = rect(image);
-        const previousRect = rect(previous);
-        const nextRect = rect(next);
-        const carouselCenterY = carouselRect.top + carouselRect.height / 2;
-
-        return {
-          hero: heroRect,
-          copy: copyRect,
-          carousel: carouselRect,
-          image: imageRect,
-          previous: previousRect,
-          next: nextRect,
-          copyEndsBeforeImage: copyRect.bottom <= carouselRect.top + 1,
-          arrowsCentered: Math.abs(previousRect.top + previousRect.height / 2 - carouselCenterY) <= 2
-            && Math.abs(nextRect.top + nextRect.height / 2 - carouselCenterY) <= 2,
-          arrowsInsideImage: previousRect.left >= imageRect.left
-            && previousRect.right <= imageRect.right
-            && nextRect.left >= imageRect.left
-            && nextRect.right <= imageRect.right,
-          hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
-        };
-      });
-
-      expect(layout, `hero geometry missing at ${theme} ${width}px`).not.toBeNull();
-      expect(layout!.carousel.height, `carousel height at ${theme} ${width}px`).toBeGreaterThanOrEqual(180);
-      expect(layout!.image.width, `image width at ${theme} ${width}px`).toBeGreaterThan(0);
-      expect(layout!.image.height, `image height at ${theme} ${width}px`).toBeGreaterThan(0);
-      expect(layout!.copyEndsBeforeImage, `hero copy overlaps image at ${theme} ${width}px`).toBe(true);
-      expect(layout!.arrowsCentered, `arrows are not centered over image at ${theme} ${width}px`).toBe(true);
-      expect(layout!.arrowsInsideImage, `arrows leave image bounds at ${theme} ${width}px`).toBe(true);
-      expect(layout!.hasOverflow, `horizontal overflow at ${theme} ${width}px`).toBe(false);
-    }
+    const layout = await page.evaluate(() => {
+      const hero = document.querySelector(".stitch-hero")!;
+      const video = document.querySelector(".stitch-hero-video")!;
+      const heroRect = hero.getBoundingClientRect();
+      const videoRect = video.getBoundingClientRect();
+      return {
+        hero: { top: heroRect.top, left: heroRect.left, width: heroRect.width, height: heroRect.height },
+        video: { width: videoRect.width, height: videoRect.height, objectFit: getComputedStyle(video).objectFit },
+        viewport: { width: window.innerWidth, height: window.innerHeight },
+        hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      };
+    });
+    expect(layout.hero).toEqual({ top: 0, left: 0, width: layout.viewport.width, height: layout.viewport.height });
+    expect(layout.video).toEqual({ width: layout.viewport.width, height: layout.viewport.height, objectFit: "cover" });
+    expect(layout.hasOverflow).toBe(false);
   }
+
+  expect(new Set(videoRequests)).toEqual(new Set([MOBILE_VIDEO, DESKTOP_VIDEO]));
 });
 
-test("sample sections, FAQ, registration, and responsive widths remain usable", async ({ page }) => {
+test("muted video playback advances and loops", async ({ page }) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const playback = await page.locator(".stitch-hero-video").evaluate(async (element) => {
+    const video = element as HTMLVideoElement;
+    try {
+      await video.play();
+      await new Promise<void>((resolve, reject) => {
+        if (video.readyState >= HTMLMediaElement.HAVE_METADATA) resolve();
+        else {
+          video.addEventListener("loadedmetadata", () => resolve(), { once: true });
+          video.addEventListener("error", () => reject(new Error("Video failed to load")), { once: true });
+          window.setTimeout(() => reject(new Error("Video metadata timed out")), 12_000);
+        }
+      });
+      const startTime = video.currentTime;
+      await new Promise((resolve) => window.setTimeout(resolve, 500));
+      const advanced = video.currentTime > startTime;
+      if (!Number.isFinite(video.duration) || video.duration < 0.5) return { advanced, looped: false };
+
+      video.currentTime = video.duration - 0.1;
+      await new Promise<void>((resolve, reject) => {
+        const onTimeUpdate = () => {
+          if (video.currentTime < 0.5) {
+            video.removeEventListener("timeupdate", onTimeUpdate);
+            resolve();
+          }
+        };
+        video.addEventListener("timeupdate", onTimeUpdate);
+        window.setTimeout(() => {
+          video.removeEventListener("timeupdate", onTimeUpdate);
+          reject(new Error("Video did not loop"));
+        }, 8_000);
+      });
+      return { advanced, looped: true };
+    } catch {
+      return { advanced: false, looped: false };
+    }
+  });
+  expect(playback.advanced).toBe(true);
+  expect(playback.looped).toBe(true);
+});
+
+test("sample sections, FAQ, registration, and responsive navbar controls remain usable", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
 
   const firstFaq = page.locator("#faq details").first();
@@ -215,9 +262,12 @@ test("sample sections, FAQ, registration, and responsive widths remain usable", 
   await submit.evaluate((button) => (button as HTMLButtonElement).click());
   expect(requestCount).toBe(0);
 
-  for (const width of [320, 360, 390, 430, 768, 820, 834, 1024, 1180, 1280, 1366, 1440, 1536, 1920]) {
+  for (const width of [320, 360, 390, 430, 639, 640, 768, 820, 834, 1024, 1180, 1280, 1366, 1440, 1536, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.evaluate(() => window.scrollTo(0, 25));
+    await expect(page.locator(".stitch-header")).toHaveClass(/is-visible/);
+    await page.waitForTimeout(200);
     const layout = await page.evaluate(() => {
       const controls = [...document.querySelectorAll(".stitch-header-actions button, .stitch-header-actions a")];
       return {
