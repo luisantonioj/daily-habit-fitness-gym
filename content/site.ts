@@ -36,10 +36,7 @@ export const sampleMedia = {
     src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCKdqhDxGKCKaZAy-3PPFiC7MSJWhaoNNvoFFMm6YEKxQUdmKaKCI37GUaSw9Wu83KFDYIf6MTAorUzaScu7wzCMBd-Chwvrj1m12ClWN-F8RdBirBDvt5Guq8-UOl8CerYRkl9QwMmNJLcc1NnDNIVm96PApBjzmIelBSqV-SVUak4S_LECInqp13IbuzNILVQvvMg3bIngW4ZNYJ5aHfmHHSMNbCJDLqJvvpCZKobPpZtjuOoJ2QzCw",
     alt: "Warm and cheerful portrait of fitness coach Marcus",
   },
-  tour: {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhMAYAT_9ojAl66D7l_BN_ZTaVEyFsbUwZ_R_MHrs936bLr2D5BwVITFgBAVTmbsBkcsfyRzT55GqnlOHCr2jhvsQbV30FUj1Jv-yLoJ7I69aJVI6LLSIOsKVz3CpHLdhnA1Hob8b-mKgdPSut8f10QQblw5PXoZKPjfcD0fWZP1h4eaQXm2wwr8tEAyi3M4BZMM6DeUTXv1IsrW1HjX4pj7giLqDZ1CShtFf1MoHzSn1t-SzQE73RvA",
-    alt: "Wide panoramic preview frame of a welcoming, spacious gym facility",
-  },
+
   community: {
     src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCZCgyaZ3n49meyqNGkObuB27strcIVQ6S9_G2BBCnVpV42C3PXF1FxX9brrIYL4lB0VphVOKvDFK9102mgc9_okj3flK6mw5tj8Ie-y4nlryPnzp9HqTBsoYmAFpPJPOgzMeu7dBq13hXpFfAvQl7NBd9oqMvJRCNGCANmpk7Nd8qSD10eW3UhUoucBpQx9PBFUQ9lYV5hDNixJeN1E272foJ09KlpgHg4D-2CPk4V8o7Q2PYz8mQ-jg",
     alt: "Authentic candid photo of diverse regular gym members smiling, high fiving and laughing together",
@@ -238,14 +235,10 @@ export const stitchContent = {
       },
     ],
   },
-  tour: {
+  gallery: {
     eyebrow: "Inside the Space",
-    title: "Take a 60-Second Virtual Tour",
-    description: "Peek at our welcoming training spaces, clean locker bays, and private beginner spots before ever visiting.",
-    cta: "Explore 360 Tour",
-    duration: "0:58",
-    features: ["24/7 Monitored Safe Access", "Hospital-Grade Sanitization"],
-    media: sampleMedia.tour,
+    title: "Life at Daily Habit",
+    description: "Explore photos from our gym and community. Select any photo for a closer look.",
   },
   memberships: {
     eyebrow: "Accessible Memberships",

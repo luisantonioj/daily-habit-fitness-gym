@@ -794,7 +794,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .stitch-experience,
-.stitch-tour,
+.stitch-gallery,
 .stitch-community,
 .stitch-location {
   background: var(--stitch-bg);
@@ -816,8 +816,7 @@ button, input, select, textarea { font: inherit; }
 
 .stitch-service-media,
 .stitch-coach-photo,
-.stitch-feed-image,
-.stitch-tour-media {
+.stitch-feed-image {
   position: relative;
   overflow: hidden;
   background: var(--stitch-high);
@@ -829,8 +828,7 @@ button, input, select, textarea { font: inherit; }
 
 .stitch-service-media img,
 .stitch-coach-photo img,
-.stitch-feed-image img,
-.stitch-tour-media img {
+.stitch-feed-image img {
   object-fit: cover;
   transition: transform 300ms ease;
 }
@@ -841,8 +839,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .stitch-service-shade,
-.stitch-feed-shade,
-.stitch-tour-overlay {
+.stitch-feed-shade {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, var(--stitch-media-scrim), transparent 65%);
@@ -850,8 +847,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .stitch-service-label,
-.stitch-service-corner,
-.stitch-tour-duration {
+.stitch-service-corner {
   position: absolute;
   z-index: 1;
   display: inline-flex;
@@ -883,8 +879,7 @@ button, input, select, textarea { font: inherit; }
   color: var(--stitch-media-label-muted);
 }
 
-.stitch-play,
-.stitch-tour-play {
+.stitch-play {
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -900,8 +895,7 @@ button, input, select, textarea { font: inherit; }
   transform: translate(-50%, -50%);
 }
 
-.stitch-play .material-symbols-outlined,
-.stitch-tour-play .material-symbols-outlined {
+.stitch-play .material-symbols-outlined {
   font-size: 1.7rem;
 }
 
@@ -1015,58 +1009,6 @@ button, input, select, textarea { font: inherit; }
 .stitch-coach-note .material-symbols-outlined {
   color: var(--stitch-accent-text);
   font-size: 1rem;
-}
-
-.stitch-tour-grid {
-  display: grid;
-  gap: 2rem;
-  align-items: center;
-}
-
-.stitch-tour-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.3rem;
-}
-
-.stitch-tour-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.stitch-tour-features span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.55rem 0.65rem;
-  border: 1px solid var(--stitch-border);
-  border-radius: 0.3rem;
-  color: var(--stitch-secondary);
-  font-size: 0.66rem;
-  font-weight: 600;
-}
-
-.stitch-tour-features .material-symbols-outlined {
-  color: var(--stitch-accent-text);
-  font-size: 1rem;
-}
-
-.stitch-tour-media {
-  min-height: 20rem;
-  aspect-ratio: 1.15;
-  border-radius: 0.75rem;
-}
-
-.stitch-tour-media img {
-  position: absolute;
-  inset: 0;
-}
-
-.stitch-tour-duration {
-  right: 0.8rem;
-  bottom: 0.8rem;
 }
 
 .stitch-membership-grid {
@@ -1670,7 +1612,6 @@ button, input, select, textarea { font: inherit; }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .stitch-tour-grid,
   .stitch-location-grid,
   .stitch-faq-grid {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
@@ -2021,4 +1962,48 @@ button, input, select, textarea { font: inherit; }
     align-items: center;
     justify-content: space-between;
   }
+}
+.community-gallery { margin-top: 2.5rem; }
+.community-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+}
+.community-gallery-thumbnail {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--stitch-border);
+  border-radius: 0.75rem;
+  background: var(--stitch-high);
+  cursor: pointer;
+}
+.community-gallery-thumbnail img { object-fit: cover; }
+.community-gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  color: var(--stitch-secondary);
+}
+.community-gallery-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--stitch-border);
+  border-radius: 50%;
+  background: var(--stitch-surface);
+  color: var(--stitch-accent-text);
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+.community-gallery :is(a, button):focus-visible {
+  outline: 3px solid var(--stitch-accent-text);
+  outline-offset: 4px;
+}
+@media (max-width: 900px) {
+  .community-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
 }

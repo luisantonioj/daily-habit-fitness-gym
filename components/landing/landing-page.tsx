@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CommunityGallery } from "@/components/landing/community-gallery";
 import { HeroSection } from "@/components/landing/hero-section";
 import { SiteHeader } from "@/components/landing/site-header";
 import { LeadForm } from "@/components/lead-form/lead-form";
@@ -27,7 +28,7 @@ function MediaImage({ media, className = "" }: { media: MediaAsset; className?: 
 }
 
 export function LandingPage() {
-  const { benefits, experience, coaching, tour, memberships, community, faq, location, form, footer } = stitchContent;
+  const { benefits, experience, coaching, gallery, memberships, community, faq, location, form, footer } = stitchContent;
   const leadsEnabled = process.env.LEADS_ENABLED === "true";
 
   return (
@@ -103,8 +104,11 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="stitch-section stitch-tour" aria-labelledby="tour-title">
-          <div className="site-shell stitch-tour-grid"><div className="stitch-tour-copy"><SectionHeader id="tour-title" eyebrow={tour.eyebrow} title={tour.title} description={tour.description} /><a className="stitch-button stitch-button-secondary" href="#location-contact">{tour.cta}<ArrowForward /></a><div className="stitch-tour-features">{tour.features.map((feature) => <span key={feature}><Icon name={feature.includes("Sanitization") ? "sanitizer" : "lock_clock"} />{feature}</span>)}</div></div><div className="stitch-tour-media"><MediaImage media={tour.media} /><div className="stitch-tour-overlay" aria-hidden="true" /><span className="stitch-tour-play"><Icon name="play_arrow" /></span><span className="stitch-tour-duration">{tour.duration}</span></div></div>
+        <section className="stitch-section stitch-gallery" aria-labelledby="gallery-title">
+          <div className="site-shell">
+            <SectionHeader id="gallery-title" eyebrow={gallery.eyebrow} title={gallery.title} description={gallery.description} centered />
+            <CommunityGallery />
+          </div>
         </section>
 
         <section className="stitch-section stitch-memberships" id="memberships" aria-labelledby="memberships-title">
