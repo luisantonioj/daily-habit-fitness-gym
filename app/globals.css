@@ -1381,33 +1381,41 @@ button, input, select, textarea { font: inherit; }
 
 .stitch-location-cards {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .stitch-location-cards article {
-  padding: 1.15rem;
-  border: 1px solid color-mix(in srgb, var(--stitch-border) 80%, transparent);
-  border-radius: 0.55rem;
+  display: flex;
+  min-height: 9.5rem;
+  flex-direction: column;
+  padding: 1.25rem 1.3rem;
+  border: 1px solid color-mix(in srgb, var(--stitch-border) 86%, transparent);
+  border-radius: 0.7rem;
   background: var(--stitch-surface);
+  box-shadow: 0 0.75rem 1.5rem rgb(0 0 0 / 0.08);
 }
 
 .stitch-location-cards article > div {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
 }
 
 .stitch-location-cards article > div .material-symbols-outlined {
   color: var(--stitch-accent-text);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 .stitch-location-cards strong {
   display: block;
-  margin-top: 0.85rem;
+  margin-top: 1rem;
+  margin-left: 1.85rem;
+  text-align: left;
   color: var(--stitch-text);
   font-family: "Lexend", var(--font-body);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1.5;
 }
 
@@ -1442,6 +1450,9 @@ button, input, select, textarea { font: inherit; }
   background: var(--stitch-high);
 }
 
+.stitch-landmark-list { display: grid; gap: 0.5rem; margin: 1rem 0 0 1.85rem; padding: 0; list-style: none; color: var(--stitch-secondary); font-size: 0.82rem; line-height: 1.45; text-align: left; }
+
+
 .stitch-map-art {
   position: absolute;
   inset: 0;
@@ -1473,19 +1484,31 @@ button, input, select, textarea { font: inherit; }
 .stitch-contact-links {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
+  gap: 0.55rem;
+  margin: 1rem 0 0 1.85rem;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .stitch-contact-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: flex-start;
+  align-self: flex-start;
+  gap: 0.65rem;
   color: var(--stitch-text);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  text-align: left;
   text-decoration: none;
   transition: color 150ms ease, transform 150ms ease;
+}
+
+.stitch-location-cards article > p {
+  margin-top: auto;
+  padding-top: 1rem;
+  font-size: 0.76rem;
+  line-height: 1.55;
 }
 
 .stitch-contact-link .material-symbols-outlined {

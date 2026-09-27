@@ -13,10 +13,10 @@ function ArrowForward() {
   return <Icon name="arrow_forward" />;
 }
 
-function SectionHeader({ eyebrow, title, description, id, centered = false }: { eyebrow: string; title: string; description?: string; id: string; centered?: boolean }) {
+function SectionHeader({ eyebrow, title, description, id, centered = false }: { eyebrow?: string; title: string; description?: string; id: string; centered?: boolean }) {
   return (
     <div className={`stitch-section-header${centered ? " is-centered" : ""}`}>
-      <span className="stitch-eyebrow">{eyebrow}</span>
+      {eyebrow ? <span className="stitch-eyebrow">{eyebrow}</span> : null}
       <h2 id={id}>{title}</h2>
       {description ? <p>{description}</p> : null}
     </div>
@@ -57,8 +57,8 @@ export function LandingPage() {
                   <div className="stitch-service-media">
                     <MediaImage media={card.media} />
                     <div className="stitch-service-shade" aria-hidden="true" />
-                    <span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span>
-                    <span className="stitch-service-corner">{card.corner}</span>
+                    {card.label ? <span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span> : null}
+                    {card.corner ? <span className="stitch-service-corner">{card.corner}</span> : null}
                   </div>
                   <div className="stitch-service-body">
                     <h3>{card.title}</h3>
@@ -88,11 +88,11 @@ export function LandingPage() {
                 <article className="stitch-coach-profile" key={coach.name}>
                   <div className="stitch-coach-photo">
                     <MediaImage media={coach.media} />
-                    <span className="stitch-coach-label">{coach.label}</span>
+                    {coach.label ? <span className="stitch-coach-label">{coach.label}</span> : null}
                   </div>
                   <div className="stitch-coach-profile-body">
                     <div>
-                      <span className="stitch-coach-role">{coach.role}</span>
+                      {coach.role ? <span className="stitch-coach-role">{coach.role}</span> : null}
                       <h3>{coach.name}</h3>
                     </div>
                     <p>“{coach.quote}”</p>
@@ -127,21 +127,8 @@ export function LandingPage() {
             <div className="stitch-location-grid">
               <div className="stitch-location-cards">
                 <article>
-                  <div><Icon name="pin_drop" /><h3>{location.addressTitle}</h3></div>
-                  <strong>{location.address}</strong>
-                  <p>{location.addressCopy}</p>
-                </article>
-                <article>
                   <div><Icon name="schedule" /><h3>Operating Hours</h3></div>
                   <strong>{location.hours}</strong>
-                  <dl>
-                    {location.hoursRows.map(([label, value]) => (
-                      <div key={label}>
-                        <dt>{label}</dt>
-                        <dd>{value}</dd>
-                      </div>
-                    ))}
-                  </dl>
                 </article>
                 <article>
                   <div><Icon name="contact_phone" /><h3>Direct Contact</h3></div>
@@ -160,6 +147,12 @@ export function LandingPage() {
                     </a>
                   </div>
                   <p>{location.contactCopy}</p>
+                </article>
+                <article>
+                  <div><Icon name="near_me" /><h3>Near Landmarks</h3></div>
+                  <ul className="stitch-landmark-list">
+                    {location.landmarks.map((landmark) => <li key={landmark}>{landmark}</li>)}
+                  </ul>
                 </article>
               </div>
               <div className="stitch-map">
