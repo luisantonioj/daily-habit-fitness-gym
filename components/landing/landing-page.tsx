@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CommunityGallery } from "@/components/landing/community-gallery";
 import { HeroSection } from "@/components/landing/hero-section";
 import { SiteHeader } from "@/components/landing/site-header";
 import { LeadForm } from "@/components/lead-form/lead-form";
@@ -12,10 +13,10 @@ function ArrowForward() {
   return <Icon name="arrow_forward" />;
 }
 
-function SectionHeader({ eyebrow, title, description, id, centered = false }: { eyebrow: string; title: string; description?: string; id: string; centered?: boolean }) {
+function SectionHeader({ eyebrow, title, description, id, centered = false }: { eyebrow?: string; title: string; description?: string; id: string; centered?: boolean }) {
   return (
     <div className={`stitch-section-header${centered ? " is-centered" : ""}`}>
-      <span className="stitch-eyebrow">{eyebrow}</span>
+      {eyebrow ? <span className="stitch-eyebrow">{eyebrow}</span> : null}
       <h2 id={id}>{title}</h2>
       {description ? <p>{description}</p> : null}
     </div>
@@ -27,7 +28,7 @@ function MediaImage({ media, className = "" }: { media: MediaAsset; className?: 
 }
 
 export function LandingPage() {
-  const { benefits, experience, coaching, tour, memberships, community, faq, location, form, footer } = stitchContent;
+  const { benefits, experience, coaching, gallery, memberships, community, faq, location, form, footer } = stitchContent;
   const leadsEnabled = process.env.LEADS_ENABLED === "true";
 
   return (
@@ -56,8 +57,8 @@ export function LandingPage() {
                   <div className="stitch-service-media">
                     <MediaImage media={card.media} />
                     <div className="stitch-service-shade" aria-hidden="true" />
-                    <span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span>
-                    <span className="stitch-service-corner">{card.corner}</span>
+                    {card.label ? <span className="stitch-service-label"><Icon name="fiber_manual_record" />{card.label}</span> : null}
+                    {card.corner ? <span className="stitch-service-corner">{card.corner}</span> : null}
                   </div>
                   <div className="stitch-service-body">
                     <h3>{card.title}</h3>
@@ -87,11 +88,11 @@ export function LandingPage() {
                 <article className="stitch-coach-profile" key={coach.name}>
                   <div className="stitch-coach-photo">
                     <MediaImage media={coach.media} />
-                    <span className="stitch-coach-label">{coach.label}</span>
+                    {coach.label ? <span className="stitch-coach-label">{coach.label}</span> : null}
                   </div>
                   <div className="stitch-coach-profile-body">
                     <div>
-                      <span className="stitch-coach-role">{coach.role}</span>
+                      {coach.role ? <span className="stitch-coach-role">{coach.role}</span> : null}
                       <h3>{coach.name}</h3>
                     </div>
                     <p>“{coach.quote}”</p>
@@ -103,8 +104,11 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="stitch-section stitch-tour" aria-labelledby="tour-title">
-          <div className="site-shell stitch-tour-grid"><div className="stitch-tour-copy"><SectionHeader id="tour-title" eyebrow={tour.eyebrow} title={tour.title} description={tour.description} /><a className="stitch-button stitch-button-secondary" href="#location-contact">{tour.cta}<ArrowForward /></a><div className="stitch-tour-features">{tour.features.map((feature) => <span key={feature}><Icon name={feature.includes("Sanitization") ? "sanitizer" : "lock_clock"} />{feature}</span>)}</div></div><div className="stitch-tour-media"><MediaImage media={tour.media} /><div className="stitch-tour-overlay" aria-hidden="true" /><span className="stitch-tour-play"><Icon name="play_arrow" /></span><span className="stitch-tour-duration">{tour.duration}</span></div></div>
+        <section className="stitch-section stitch-gallery" aria-labelledby="gallery-title">
+          <div className="site-shell">
+            <SectionHeader id="gallery-title" eyebrow={gallery.eyebrow} title={gallery.title} description={gallery.description} centered />
+            <CommunityGallery />
+          </div>
         </section>
 
         <section className="stitch-section stitch-memberships" id="memberships" aria-labelledby="memberships-title">
@@ -123,21 +127,8 @@ export function LandingPage() {
             <div className="stitch-location-grid">
               <div className="stitch-location-cards">
                 <article>
-                  <div><Icon name="pin_drop" /><h3>{location.addressTitle}</h3></div>
-                  <strong>{location.address}</strong>
-                  <p>{location.addressCopy}</p>
-                </article>
-                <article>
                   <div><Icon name="schedule" /><h3>Operating Hours</h3></div>
                   <strong>{location.hours}</strong>
-                  <dl>
-                    {location.hoursRows.map(([label, value]) => (
-                      <div key={label}>
-                        <dt>{label}</dt>
-                        <dd>{value}</dd>
-                      </div>
-                    ))}
-                  </dl>
                 </article>
                 <article>
                   <div><Icon name="contact_phone" /><h3>Direct Contact</h3></div>
@@ -156,6 +147,12 @@ export function LandingPage() {
                     </a>
                   </div>
                   <p>{location.contactCopy}</p>
+                </article>
+                <article>
+                  <div><Icon name="near_me" /><h3>Near Landmarks</h3></div>
+                  <ul className="stitch-landmark-list">
+                    {location.landmarks.map((landmark) => <li key={landmark}>{landmark}</li>)}
+                  </ul>
                 </article>
               </div>
               <div className="stitch-map">

@@ -32,7 +32,6 @@ export function ThemeToggle() {
   return (
     <button className="theme-toggle" type="button" aria-label={nextLabel} aria-pressed={theme === "light"} onClick={toggleTheme}>
       <span aria-hidden="true">{theme === "dark" ? "☼" : "☾"}</span>
-      <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
     </button>
   );
 }
