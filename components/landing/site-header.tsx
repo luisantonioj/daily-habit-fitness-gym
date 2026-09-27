@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CoachAvatar } from "@/components/landing/coach-avatar";
@@ -8,6 +9,7 @@ import { stitchContent } from "@/content/site";
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(stitchContent.header.nav[0][1]);
 
   function closeMenu() {
@@ -23,6 +25,10 @@ export function SiteHeader() {
     const sectionIds = stitchContent.header.nav.map(([, href]) => href.replace(/^#/, ""));
 
     const handleScroll = () => {
+      const shouldShowHeader = window.scrollY > 24;
+      setIsVisible(shouldShowHeader);
+      if (!shouldShowHeader) setIsOpen(false);
+
       const headerOffset = 140;
       const scrollPosition = window.scrollY + headerOffset;
 
@@ -46,17 +52,27 @@ export function SiteHeader() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("pageshow", handleScroll);
+    window.addEventListener("popstate", handleScroll);
+    window.addEventListener("hashchange", handleScroll);
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("pageshow", handleScroll);
+      window.removeEventListener("popstate", handleScroll);
+      window.removeEventListener("hashchange", handleScroll);
     };
   }, []);
 
   const { coachOnDuty } = stitchContent.header;
 
   return (
-    <header className="site-header stitch-header">
+    <header
+      className={`site-header stitch-header${isVisible ? " is-visible" : ""}`}
+      aria-hidden={!isVisible}
+      inert={!isVisible}
+    >
       <div className="site-shell stitch-header-inner">
         <a className="stitch-brand" href="#top" aria-label="Daily Habit Fitness Gym home" onClick={closeMenu}>
           <Image src="/brand/daily-habit-mark.png" alt="Daily Habit Fitness Gym Logo" width={1080} height={1080} priority />
